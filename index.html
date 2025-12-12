@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ribosomes Diagnostics | India's Leading Medical Equipment Distributor</title>
-    <meta name="description" content="Complete range of diagnostic equipment - Hematology, Biochemistry, CLIA, ELISA. 15+ products, 500+ clients, 24/7 support. Call +91 773 889 5976">
+    <title>Ribosomes Diagnostics | 17+ Medical Equipment Products - India's Leading Distributor</title>
+    <meta name="description" content="Complete range of 17+ diagnostic equipment - Hematology, Biochemistry, CLIA, ELISA. Individual product pages with full specifications. Call +91 773 889 5976">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -45,15 +45,12 @@
         .message { margin-bottom: 20px; display: flex; gap: 12px; animation: fadeIn 0.4s ease; }
         .message.bot { flex-direction: row; }
         .message.user { flex-direction: row-reverse; }
-        .message-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .message-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-center; font-size: 20px; flex-shrink: 0; }
         .message.bot .message-avatar { background: linear-gradient(135deg, #0066CC, #00A86B); color: white; }
         .message.user .message-avatar { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
         .message-content { max-width: 75%; padding: 14px 18px; border-radius: 18px; font-size: 15px; line-height: 1.6; }
         .message.bot .message-content { background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .message.user .message-content { background: linear-gradient(135deg, #0066CC, #004C99); color: white; }
-        
-        .client-logo { filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease; }
-        .client-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
         
         @media (max-width: 768px) {
             .chatbot-window { width: calc(100vw - 40px); height: calc(100vh - 140px); }
@@ -92,14 +89,14 @@
                     <div class="relative group">
                         <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Products <i class="fas fa-chevron-down text-xs ml-1"></i></a>
                         <div class="absolute hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 py-2 w-56 border">
-                            <a href="#" onclick="showPage('products')" class="block px-4 py-2 hover:bg-blue-50">All Products</a>
-                            <a href="#" onclick="showPage('hematology')" class="block px-4 py-2 hover:bg-blue-50">Hematology</a>
-                            <a href="#" onclick="showPage('biochemistry')" class="block px-4 py-2 hover:bg-blue-50">Biochemistry</a>
-                            <a href="#" onclick="showPage('clia')" class="block px-4 py-2 hover:bg-blue-50">CLIA Systems</a>
+                            <a href="#" onclick="showPage('products')" class="block px-4 py-2 hover:bg-blue-50">All Products (17)</a>
+                            <a href="#" onclick="filterProducts('Hematology')" class="block px-4 py-2 hover:bg-blue-50">Hematology (6)</a>
+                            <a href="#" onclick="filterProducts('Biochemistry')" class="block px-4 py-2 hover:bg-blue-50">Biochemistry (5)</a>
+                            <a href="#" onclick="filterProducts('CLIA')" class="block px-4 py-2 hover:bg-blue-50">CLIA (3)</a>
+                            <a href="#" onclick="filterProducts('Other')" class="block px-4 py-2 hover:bg-blue-50">Others (3)</a>
                         </div>
                     </div>
                     <a href="#" onclick="showPage('services')" class="text-gray-700 hover:text-blue-600 font-medium">Services</a>
-                    <a href="#" onclick="showPage('clients')" class="text-gray-700 hover:text-blue-600 font-medium">Clients</a>
                     <a href="#" onclick="showPage('contact')" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
                 </div>
             </div>
@@ -112,132 +109,76 @@
             <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-700/90" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920'); background-size: cover; background-position: center; background-blend-mode: overlay;"></div>
             <div class="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
                 <div class="text-white max-w-4xl mb-12">
-                    <h1 class="text-5xl md:text-7xl font-bold mb-6">Advanced Diagnostic Equipment</h1>
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6">17+ Diagnostic Equipment Products</h1>
                     <p class="text-xl md:text-2xl mb-8">Complete Solutions for Modern Laboratories</p>
                 </div>
                 <div class="flex gap-4 mb-12">
                     <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 text-lg shadow-lg">
-                        <i class="fas fa-microscope mr-2"></i>View Products
+                        <i class="fas fa-microscope mr-2"></i>View All Products
                     </button>
                     <button onclick="openChatbot()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg">
                         <i class="fas fa-robot mr-2"></i>Ask AI
                     </button>
                 </div>
                 <div class="grid grid-cols-3 gap-8 text-white">
-                    <div><div class="text-4xl font-bold">15+</div><div class="text-sm">Products</div></div>
+                    <div><div class="text-4xl font-bold">17+</div><div class="text-sm">Products</div></div>
                     <div><div class="text-4xl font-bold">500+</div><div class="text-sm">Clients</div></div>
                     <div><div class="text-4xl font-bold">24/7</div><div class="text-sm">Support</div></div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- Client Logos Section -->
-        <div class="py-16 bg-white">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-12">Trusted by Leading Healthcare Institutions</h2>
-                <div class="grid grid-cols-2 md:grid-cols-6 gap-8 items-center">
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Apollo</div>
-                    </div>
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Max</div>
-                    </div>
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Fortis</div>
-                    </div>
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Medanta</div>
-                    </div>
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Manipal</div>
-                    </div>
-                    <div class="client-logo flex items-center justify-center p-4">
-                        <div class="text-4xl font-bold text-gray-400">Narayana</div>
-                    </div>
-                </div>
+    <!-- PRODUCTS PAGE -->
+    <section id="products" class="page-section">
+        <div class="container mx-auto px-4 py-20">
+            <h1 class="text-5xl font-bold text-center mb-4">Our Products</h1>
+            <p class="text-xl text-center text-gray-600 mb-12">17 comprehensive diagnostic solutions</p>
+            
+            <!-- Category Filters -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="filterProducts('All')" class="px-6 py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700">All (17)</button>
+                <button onclick="filterProducts('Hematology')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300">Hematology (6)</button>
+                <button onclick="filterProducts('Biochemistry')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300">Biochemistry (5)</button>
+                <button onclick="filterProducts('CLIA')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300">CLIA (3)</button>
+                <button onclick="filterProducts('Other')" class="px-6 py-3 bg-gray-200 text-gray-700 rounded-full font-semibold hover:bg-gray-300">Others (3)</button>
             </div>
-        </div>
-
-        <!-- Certifications -->
-        <div class="py-16 bg-gray-50">
-            <div class="container mx-auto px-4">
-                <h2 class="text-3xl font-bold text-center mb-12">Certifications & Quality Standards</h2>
-                <div class="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <i class="fas fa-certificate text-5xl text-blue-600 mb-3"></i>
-                        <h3 class="font-bold text-lg">ISO 9001:2015</h3>
-                        <p class="text-sm text-gray-600">Quality Management</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <i class="fas fa-check-circle text-5xl text-green-600 mb-3"></i>
-                        <h3 class="font-bold text-lg">CE Certified</h3>
-                        <p class="text-sm text-gray-600">European Standards</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <i class="fas fa-shield-alt text-5xl text-purple-600 mb-3"></i>
-                        <h3 class="font-bold text-lg">FDA Approved</h3>
-                        <p class="text-sm text-gray-600">US Standards</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
-                        <i class="fas fa-award text-5xl text-orange-600 mb-3"></i>
-                        <h3 class="font-bold text-lg">ISO 13485</h3>
-                        <p class="text-sm text-gray-600">Medical Devices</p>
-                    </div>
-                </div>
+            
+            <div id="products-grid" class="grid md:grid-cols-3 gap-8">
+                <!-- Products will be inserted here by JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- PRODUCT DETAIL PAGE TEMPLATE -->
+    <!-- PRODUCT DETAIL PAGE -->
     <section id="product-detail" class="page-section">
         <div class="container mx-auto px-4 py-20">
             <!-- Breadcrumb -->
             <div class="text-sm text-gray-600 mb-6">
                 <a href="#" onclick="showPage('home')" class="hover:text-blue-600">Home</a> / 
                 <a href="#" onclick="showPage('products')" class="hover:text-blue-600">Products</a> / 
-                <span id="product-breadcrumb">Product Name</span>
+                <span id="product-breadcrumb">Product</span>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 mb-12">
-                <!-- Product Images -->
                 <div>
-                    <div class="bg-white p-8 rounded-2xl shadow-lg mb-4">
+                    <div class="bg-white p-8 rounded-2xl shadow-lg">
                         <img id="product-main-image" src="" alt="Product" class="w-full h-96 object-contain">
-                    </div>
-                    <div class="grid grid-cols-4 gap-4">
-                        <div class="bg-white p-2 rounded-lg shadow cursor-pointer hover:shadow-lg">
-                            <img src="" alt="Thumb" class="w-full h-20 object-contain">
-                        </div>
                     </div>
                 </div>
 
-                <!-- Product Info -->
                 <div>
                     <div class="bg-blue-50 inline-block px-4 py-1 rounded-full text-sm font-semibold text-blue-600 mb-4" id="product-category">Category</div>
                     <h1 class="text-4xl font-bold mb-4" id="product-name">Product Name</h1>
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="text-gray-600">(50+ reviews)</span>
-                    </div>
-                    <p class="text-lg text-gray-600 mb-8" id="product-description">Product description goes here...</p>
+                    <p class="text-lg text-gray-600 mb-8" id="product-description">Description</p>
                     
-                    <!-- Key Features -->
                     <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
                         <h3 class="text-xl font-bold mb-4">Key Features</h3>
-                        <ul class="space-y-2" id="product-features">
-                            <li><i class="fas fa-check text-green-600 mr-2"></i>Feature 1</li>
-                        </ul>
+                        <ul class="space-y-2" id="product-features"></ul>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="flex gap-4">
-                        <button onclick="showQuoteForm()" class="flex-1 bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 font-bold text-lg">
+                        <button onclick="alert('Quote request sent! We will contact you soon.')" class="flex-1 bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 font-bold text-lg">
                             <i class="fas fa-file-invoice mr-2"></i>Request Quote
                         </button>
                         <button onclick="openChatbot()" class="flex-1 bg-green-600 text-white px-6 py-4 rounded-lg hover:bg-green-700 font-bold text-lg">
@@ -247,62 +188,9 @@
                 </div>
             </div>
 
-            <!-- Specifications Table -->
-            <div class="bg-white p-8 rounded-2xl shadow-lg mb-12">
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
                 <h2 class="text-3xl font-bold mb-6">Technical Specifications</h2>
-                <table class="spec-table" id="product-specs">
-                    <tr><th>Parameter</th><th>Specification</th></tr>
-                </table>
-            </div>
-
-            <!-- Related Products -->
-            <div>
-                <h2 class="text-3xl font-bold mb-6">Related Products</h2>
-                <div class="grid md:grid-cols-4 gap-6" id="related-products">
-                    <!-- Related products will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CLIENTS PAGE -->
-    <section id="clients" class="page-section">
-        <div class="container mx-auto px-4 py-20">
-            <h1 class="text-5xl font-bold text-center mb-4">Our Clients</h1>
-            <p class="text-xl text-center text-gray-600 mb-12">Trusted by 500+ healthcare institutions across India</p>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-                    <div class="text-5xl font-bold text-blue-600 mb-2">500+</div>
-                    <div class="text-gray-600">Healthcare Institutions</div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-                    <div class="text-5xl font-bold text-green-600 mb-2">50+</div>
-                    <div class="text-gray-600">Cities Covered</div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
-                    <div class="text-5xl font-bold text-purple-600 mb-2">98%</div>
-                    <div class="text-gray-600">Client Satisfaction</div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-                    <div class="text-3xl font-bold text-gray-700 mb-2">Apollo Hospitals</div>
-                    <div class="text-sm text-gray-500">Pan India</div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-                    <div class="text-3xl font-bold text-gray-700 mb-2">Max Healthcare</div>
-                    <div class="text-sm text-gray-500">Delhi NCR</div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-                    <div class="text-3xl font-bold text-gray-700 mb-2">Fortis</div>
-                    <div class="text-sm text-gray-500">Multiple Cities</div>
-                </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-                    <div class="text-3xl font-bold text-gray-700 mb-2">Medanta</div>
-                    <div class="text-sm text-gray-500">Gurugram</div>
-                </div>
+                <table class="spec-table" id="product-specs"></table>
             </div>
         </div>
     </section>
@@ -356,7 +244,7 @@
             <div class="chatbot-header flex justify-between items-center">
                 <div>
                     <div class="font-bold text-xl">AI Assistant</div>
-                    <div class="text-sm opacity-90">Always here to help</div>
+                    <div class="text-sm opacity-90">17+ Products Available</div>
                 </div>
                 <button onclick="toggleChatbot()" class="text-white text-2xl">
                     <i class="fas fa-times"></i>
@@ -366,82 +254,145 @@
                 <div class="message bot">
                     <div class="message-avatar"><i class="fas fa-robot"></i></div>
                     <div class="message-content">
-                        👋 Hello! I can help you with product information, pricing, and technical support. What would you like to know?
+                        👋 Hello! I can help you with our 17 products. Ask me about Hematology, Biochemistry, CLIA, or other equipment!
                     </div>
                 </div>
             </div>
             <div class="chatbot-input">
-                <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <input type="text" id="chatInput" placeholder="Ask about products..." onkeypress="if(event.key==='Enter') sendMessage()">
                 <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
 
     <script>
-        // Product Database
+        // COMPLETE PRODUCT DATABASE - ALL 17 PRODUCTS
         const products = {
+            // HEMATOLOGY (6 products)
             'mispa-count-x-plus': {
-                name: 'Mispa Count X Plus',
-                category: 'Hematology',
-                description: '3-Part Hematology Analyzer with 21 parameters and 60 samples/hour throughput',
+                name: 'Mispa Count X Plus', category: 'Hematology',
+                description: '3-Part Hematology Analyzer with 21 parameters, 60 samples/hour throughput, ideal for small to medium labs',
                 image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-count-x-plus.jpg',
-                features: [
-                    '21 reportable parameters',
-                    '60 samples per hour',
-                    '3-Part differential',
-                    'Compact design',
-                    'User-friendly interface'
-                ],
-                specs: {
-                    'Type': '3-Part Hematology Analyzer',
-                    'Parameters': '21',
-                    'Throughput': '60 samples/hour',
-                    'Sample Volume': '20 µL',
-                    'Technology': 'Impedance + Colorimetry',
-                    'Display': '10.4" Touch Screen'
-                }
+                features: ['21 reportable parameters', '60 samples/hour', '3-Part differential (WBC)', 'Compact design', 'User-friendly interface', '20 µL sample volume', 'Impedance + Colorimetry technology'],
+                specs: {'Type': '3-Part Hematology', 'Parameters': '21', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Impedance + Colorimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
             },
             'bc5140': {
-                name: 'BC5140',
-                category: 'Hematology',
-                description: '5-Part Hematology Analyzer with 25 parameters and advanced AI pattern recognition',
+                name: 'BC5140', category: 'Hematology',
+                description: '5-Part Hematology Analyzer with 25 parameters, Flow Cytometer technology, AI pattern recognition by Mindray',
                 image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5140-5-part-hematology-analyzer.jpg',
-                features: [
-                    '25 reportable parameters',
-                    'Flow Cytometer technology',
-                    'Tri-angle Laser Scatter',
-                    'AI pattern recognition',
-                    'Manufactured by Mindray'
-                ],
-                specs: {
-                    'Type': '5-Part Hematology Analyzer',
-                    'Parameters': '25',
-                    'Throughput': '60 samples/hour',
-                    'Technology': 'Flow Cytometry',
-                    'Manufacturer': 'Mindray',
-                    'Display': '10.4" Touch Screen'
-                }
+                features: ['25 reportable parameters', 'Flow Cytometer technology', 'Tri-angle Laser Scatter', 'AI pattern recognition', '60 samples/hour', 'Manufactured by Mindray', 'Advanced flagging system'],
+                specs: {'Type': '5-Part Hematology', 'Parameters': '25', 'Throughput': '60 samples/hour', 'Technology': 'Flow Cytometry', 'Manufacturer': 'Mindray', 'Display': '10.4" Touch Screen', 'Sample Volume': '20 µL', 'Warranty': '2 Years'}
             },
+            'mispa-hx-58': {
+                name: 'Mispa HX 58', category: 'Hematology',
+                description: '5-Part Hematology Analyzer with 24 parameters, advanced differential counting, suitable for medium labs',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-58.jpg',
+                features: ['24 reportable parameters', '5-Part differential', '60 samples/hour', 'Advanced flagging', 'Compact footprint', 'Easy maintenance', 'Cost-effective'],
+                specs: {'Type': '5-Part Hematology', 'Parameters': '24', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-hx-88': {
+                name: 'Mispa HX 88', category: 'Hematology',
+                description: '6-Part Hematology Analyzer with NRBC, RET, IPF - Advanced parameters for comprehensive blood analysis',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-88.jpg',
+                features: ['6-Part differential', 'NRBC counting', 'Reticulocyte (RET)', 'IPF analysis', '28 parameters', '80 samples/hour', 'Advanced research features'],
+                specs: {'Type': '6-Part Hematology', 'Parameters': '28', 'Throughput': '80 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Fluorescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'bc5390': {
+                name: 'BC5390', category: 'Hematology',
+                description: '5-Part Auto Hematology Analyzer by Mindray with high throughput and advanced features',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5390.jpg',
+                features: ['5-Part differential', 'Auto sampler', '90 samples/hour', 'Advanced flagging', 'LIS connectivity', 'Mindray quality', 'Low reagent consumption'],
+                specs: {'Type': '5-Part Auto Hematology', 'Parameters': '26', 'Throughput': '90 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'}
+            },
+            'bc5180': {
+                name: 'BC5180', category: 'Hematology',
+                description: '5-Part Hematology Analyzer with CRP - Combined CBC and inflammation marker testing',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5180.jpg',
+                features: ['5-Part differential', 'CRP testing', '60 samples/hour', 'Dual testing capability', 'Cost-effective', 'Mindray technology', 'Compact design'],
+                specs: {'Type': '5-Part + CRP', 'Parameters': '25 + CRP', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Immunoturbidimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'}
+            },
+
+            // BIOCHEMISTRY (5 products)
             'mispa-nano-plus': {
-                name: 'Mispa Nano Plus',
-                category: 'Biochemistry',
-                description: 'Fully automated biochemistry analyzer with random access and high throughput',
+                name: 'Mispa Nano Plus', category: 'Biochemistry',
+                description: 'Fully automated biochemistry analyzer with random access, 200 tests/hour, ideal for medium to large labs',
                 image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-nano-plus.jpg',
-                features: [
-                    'Fully automated',
-                    'Random access system',
-                    'High throughput',
-                    'AI quality control',
-                    'Discrete analysis'
-                ],
-                specs: {
-                    'Type': 'Fully Automated Biochemistry',
-                    'Throughput': '200 tests/hour',
-                    'Sample Volume': '2-35 µL',
-                    'Reagent Positions': '60',
-                    'Sample Positions': '100',
-                    'Technology': 'Photometric'
-                }
+                features: ['Fully automated', 'Random access', '200 tests/hour', 'AI quality control', '60 reagent positions', '100 sample positions', 'Discrete analysis'],
+                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '200 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '60', 'Sample Positions': '100', 'Technology': 'Photometric', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-cx4': {
+                name: 'Mispa CX4', category: 'Biochemistry',
+                description: 'High-throughput biochemistry analyzer - 400 tests/hour with advanced automation',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cx4.jpg',
+                features: ['400 tests/hour', 'Fully automated', 'ISE module', 'Random access', 'Low sample volume', 'Advanced QC', 'LIS integration'],
+                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '400 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '80', 'Sample Positions': '120', 'Technology': 'Photometric + ISE', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-cxl-pro-plus': {
+                name: 'Mispa CXL Pro Plus', category: 'Biochemistry',
+                description: 'Premium fully automated biochemistry analyzer with extended features and high capacity',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cxl-pro-plus.jpg',
+                features: ['Fully automated', '300 tests/hour', 'Extended reagent capacity', 'ISE module', 'Advanced software', 'Barcode reader', 'Auto dilution'],
+                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '300 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '70', 'Sample Positions': '110', 'Technology': 'Photometric + ISE', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-plus': {
+                name: 'Mispa Plus', category: 'Biochemistry',
+                description: 'Semi-automated biochemistry analyzer - Cost-effective solution for small labs',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-plus.jpg',
+                features: ['Semi-automated', '100 tests/hour', 'Compact design', 'Easy operation', 'Low maintenance', 'Affordable', 'Reliable results'],
+                specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '100 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '12', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-viva': {
+                name: 'Mispa Viva', category: 'Biochemistry',
+                description: 'Semi-automated biochemistry analyzer with enhanced features for growing labs',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-viva.jpg',
+                features: ['Semi-automated', '120 tests/hour', 'User-friendly', 'Compact footprint', 'Low reagent consumption', 'Easy maintenance', 'Cost-effective'],
+                specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '120 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '16', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+
+            // CLIA (3 products)
+            'mispa-i200': {
+                name: 'MISPA i200', category: 'CLIA',
+                description: 'Chemiluminescence Immunoassay System with direct chemiluminescence technology',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i200.jpg',
+                features: ['Direct chemiluminescence', '200 tests/hour', 'Wide test menu', 'Random access', 'AI result validation', 'Compact design', 'Low maintenance'],
+                specs: {'Type': 'CLIA System', 'Throughput': '200 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '25', 'Sample Positions': '50', 'Technology': 'Direct Chemiluminescence', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'mispa-i180': {
+                name: 'MISPA i180', category: 'CLIA',
+                description: 'CLIA System with Acridinium Ester technology for high sensitivity testing',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i180.jpg',
+                features: ['Acridinium Ester technology', '180 tests/hour', 'High sensitivity', 'Wide test menu', 'Random access', 'Compact design', 'Easy operation'],
+                specs: {'Type': 'CLIA System', 'Throughput': '180 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '20', 'Sample Positions': '45', 'Technology': 'Acridinium Ester', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'maglumi-800': {
+                name: 'MAGLUMI 800', category: 'CLIA',
+                description: 'High-capacity CLIA system with magnetic particle separation technology',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/maglumi-800.jpg',
+                features: ['Magnetic particle separation', '240 tests/hour', 'High capacity', 'Wide test menu', 'Random access', 'Advanced automation', 'LIS connectivity'],
+                specs: {'Type': 'CLIA System', 'Throughput': '240 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '30', 'Sample Positions': '60', 'Technology': 'Magnetic Particle + Chemiluminescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Snibe', 'Warranty': '1 Year'}
+            },
+
+            // OTHERS (3 products)
+            'elisa-reader': {
+                name: 'ELISA Reader', category: 'Other',
+                description: 'Microplate reader for ELISA testing with high precision and reliability',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/elisa-reader.jpg',
+                features: ['Microplate reading', 'High precision', 'Multiple wavelengths', 'Compact design', 'Easy operation', 'Affordable', 'Reliable results'],
+                specs: {'Type': 'ELISA Reader', 'Wavelength Range': '400-750 nm', 'Plate Format': '96-well', 'Reading Time': '< 10 seconds', 'Technology': 'Photometric', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'coagulation-analyzer': {
+                name: 'Coagulation Analyzer', category: 'Other',
+                description: 'Automated coagulation analyzer for PT, APTT, Fibrinogen, and other tests',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/coagulation-analyzer.jpg',
+                features: ['Automated testing', 'PT, APTT, Fibrinogen', 'Compact design', 'Easy operation', 'Quick results', 'Low sample volume', 'Cost-effective'],
+                specs: {'Type': 'Coagulation Analyzer', 'Tests': 'PT, APTT, Fibrinogen, TT', 'Throughput': '60 tests/hour', 'Sample Volume': '50 µL', 'Technology': 'Optical Detection', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
+            },
+            'electrolyte-analyzer': {
+                name: 'Electrolyte Analyzer', category: 'Other',
+                description: 'ISE-based electrolyte analyzer for Na, K, Cl, and other ions',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/electrolyte-analyzer.jpg',
+                features: ['ISE technology', 'Na, K, Cl testing', 'Quick results', 'Low sample volume', 'Compact design', 'Easy maintenance', 'Affordable'],
+                specs: {'Type': 'Electrolyte Analyzer', 'Parameters': 'Na, K, Cl, Ca, Li', 'Throughput': '60 samples/hour', 'Sample Volume': '100 µL', 'Technology': 'Ion Selective Electrode', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
             }
         };
 
@@ -452,6 +403,38 @@
                 page.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
+            if (pageId === 'products') renderProducts();
+        }
+
+        function renderProducts(filter = 'All') {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            
+            Object.entries(products).forEach(([id, product]) => {
+                if (filter === 'All' || product.category === filter) {
+                    const card = `
+                        <div class="product-card bg-white rounded-2xl shadow-lg overflow-hidden" onclick="showProduct('${id}')">
+                            <div class="relative">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover">
+                                <div class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">${product.category}</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-2xl font-bold mb-2">${product.name}</h3>
+                                <p class="text-gray-600 mb-4">${product.description.substring(0, 80)}...</p>
+                                <button class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    grid.innerHTML += card;
+                }
+            });
+        }
+
+        function filterProducts(category) {
+            showPage('products');
+            setTimeout(() => renderProducts(category), 100);
         }
 
         function showProduct(productId) {
@@ -464,13 +447,11 @@
             document.getElementById('product-description').textContent = product.description;
             document.getElementById('product-main-image').src = product.image;
 
-            const featuresList = document.getElementById('product-features');
-            featuresList.innerHTML = product.features.map(f => 
+            document.getElementById('product-features').innerHTML = product.features.map(f => 
                 `<li><i class="fas fa-check text-green-600 mr-2"></i>${f}</li>`
             ).join('');
 
-            const specsTable = document.getElementById('product-specs');
-            specsTable.innerHTML = '<tr><th>Parameter</th><th>Specification</th></tr>' +
+            document.getElementById('product-specs').innerHTML = '<tr><th>Parameter</th><th>Specification</th></tr>' +
                 Object.entries(product.specs).map(([key, val]) => 
                     `<tr><td>${key}</td><td>${val}</td></tr>`
                 ).join('');
@@ -495,7 +476,7 @@
             input.value = '';
 
             setTimeout(() => {
-                const response = 'Thank you for your inquiry! For detailed information, please call +91 773 889 5976 or fill our contact form.';
+                const response = 'Thank you! We have 17 products across Hematology, Biochemistry, CLIA, and more. Call +91 773 889 5976 for details!';
                 addMessage(response, 'bot');
             }, 1000);
         }
@@ -512,9 +493,8 @@
             messages.scrollTop = messages.scrollHeight;
         }
 
-        function showQuoteForm() {
-            alert('Quote request form will open. For immediate assistance, call +91 773 889 5976');
-        }
+        // Initialize
+        renderProducts();
     </script>
 </body>
 </html>
