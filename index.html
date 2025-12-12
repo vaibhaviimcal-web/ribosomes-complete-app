@@ -357,6 +357,47 @@
         
         let conversationHistory = [];
         
+        const productKnowledge = `
+You are an AI assistant for Ribosomes Diagnostics, a medical diagnostic equipment distributor in India.
+
+PRODUCTS WE OFFER:
+
+HEMATOLOGY ANALYZERS:
+- Mispa Count X Plus (3-Part): 21 parameters, 60 samples/hour, AI quality control
+- BC5140 (5-Part): 25 parameters, Flow Cytometer technology, AI pattern recognition for abnormal cells
+- Mispa HX 58 (5-Part): 24 parameters, CBC with autoloader, AI validation
+- Mispa HX 88 (6-Part): 6-Part differential, NRBC, RET, IPF with AI analysis
+
+BIOCHEMISTRY ANALYZERS:
+Fully Automated:
+- Mispa Nano Plus: Random access, high throughput, AI-powered quality control
+- Mispa CX4: 400 tests/hour, AI-driven result validation, automated error detection
+- Mispa CXL Pro Plus: HCFG spectrophotometry, AI error detection
+
+Semi-Automated:
+- Mispa Plus: Next-gen semi-auto, AI-assisted results
+- Mispa Viva: Compact, reliable, AI quality checks
+
+CLIA SYSTEMS (Chemiluminescence Immunoassay):
+- MISPA i200: Direct chemiluminescence, AI result validation
+- MISPA i180: Acridinium Ester technology, AI analysis
+- MAGLUMI 800: High-capacity, high-speed, AI optimization
+
+OTHER PRODUCTS:
+- ELISA Readers: ADX ELISA Reader for antibody testing
+- Coagulation Analyzers: MISPA CLOG with AI calculations
+- Electrolyte Analyzers
+
+COMPANY INFORMATION:
+- Established: February 21, 2020
+- Location: Shop No-1&2, Navi Mumbai Panvel-410206, Maharashtra, India
+- Phone: +91 773 889 5976
+- Partners: Agappe Diagnostics, Mindray, Nihon Kohden
+- Services: 24/7 AI support, Installation, Training, Maintenance
+
+Be helpful, professional, and provide accurate information. If asked about pricing, suggest contacting the team directly.
+`;
+        
         function toggleChatbot() {
             const window = document.getElementById('chatbotWindow');
             window.classList.toggle('active');
@@ -382,70 +423,70 @@
                 addMessage(response, 'bot');
             } catch (error) {
                 hideTyping();
-                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                addMessage('I apologize for the inconvenience. Let me help you directly: Please call us at +91 773 889 5976 or email for immediate assistance. Our team is available 24/7!', 'bot');
                 console.error('Gemini API Error:', error);
             }
         }
         
         async function callGeminiAPI(userMessage) {
-            conversationHistory.push({
-                role: 'user',
-                parts: [{ text: userMessage }]
-            });
-            
-            const systemPrompt = `You are an AI assistant for Ribosomes Diagnostics, a medical diagnostic equipment distributor in India. 
-            
-Products we offer:
-- Hematology Analyzers: Mispa Count X Plus (3-part), BC5140 (5-part), Mispa HX 88 (6-part)
-- Biochemistry Analyzers: Mispa Nano Plus (fully automated), Mispa CX4 (400 tests/hour), Mispa Viva (semi-automated)
-- CLIA Systems: MISPA i200, MISPA i180, MAGLUMI 800
-- ELISA Readers, Coagulation Analyzers (MISPA CLOG)
-
-Company Info:
-- Established: February 21, 2020
-- Location: Navi Mumbai Panvel-410206, Maharashtra, India
-- Phone: +91 773 889 5976
-- Partners: Agappe Diagnostics, Mindray, Nihon Kohden
-
-Provide helpful, accurate information about our products and services. Be professional and friendly.`;
-            
-            const requestBody = {
-                contents: [
-                    {
-                        role: 'user',
-                        parts: [{ text: systemPrompt }]
+            try {
+                const requestBody = {
+                    contents: [{
+                        parts: [{
+                            text: `${productKnowledge}\n\nUser Question: ${userMessage}\n\nProvide a helpful, accurate response:`
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 1024,
                     },
-                    ...conversationHistory
-                ],
-                generationConfig: {
-                    temperature: 0.7,
-                    topK: 40,
-                    topP: 0.95,
-                    maxOutputTokens: 1024,
+                    safetySettings: [
+                        {
+                            category: "HARM_CATEGORY_HARASSMENT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_HATE_SPEECH",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                            threshold: "BLOCK_NONE"
+                        },
+                        {
+                            category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+                            threshold: "BLOCK_NONE"
+                        }
+                    ]
+                };
+                
+                const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('API Error:', errorData);
+                    throw new Error(`API request failed: ${response.status}`);
                 }
-            };
-            
-            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody)
-            });
-            
-            if (!response.ok) {
-                throw new Error(`API request failed: ${response.status}`);
+                
+                const data = await response.json();
+                
+                if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                    return data.candidates[0].content.parts[0].text;
+                } else {
+                    throw new Error('Invalid response format');
+                }
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                throw error;
             }
-            
-            const data = await response.json();
-            const aiResponse = data.candidates[0].content.parts[0].text;
-            
-            conversationHistory.push({
-                role: 'model',
-                parts: [{ text: aiResponse }]
-            });
-            
-            return aiResponse;
         }
         
         function askAI(question) {
@@ -458,11 +499,15 @@ Provide helpful, accurate information about our products and services. Be profes
             const messages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${type}`;
+            
+            // Format text with line breaks
+            const formattedText = text.replace(/\n/g, '<br>');
+            
             messageDiv.innerHTML = `
                 <div class="message-avatar">
                     <i class="fas fa-${type === 'bot' ? 'robot' : 'user'}"></i>
                 </div>
-                <div class="message-content">${text}</div>
+                <div class="message-content">${formattedText}</div>
             `;
             messages.appendChild(messageDiv);
             messages.scrollTop = messages.scrollHeight;
