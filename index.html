@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ribosomes Diagnostics | Complete Medical Equipment Solutions - India's Leading Distributor</title>
-    <meta name="description" content="Leading distributor of diagnostic equipment in India - Hematology, Biochemistry, CLIA, ELISA systems. 24/7 AI support, professional installation, comprehensive training. Call +91 773 889 5976">
-    <meta name="keywords" content="diagnostic equipment, hematology analyzer, biochemistry analyzer, CLIA, medical equipment India, lab equipment">
+    <title>Ribosomes Diagnostics | India's Leading Medical Equipment Distributor</title>
+    <meta name="description" content="Complete range of diagnostic equipment - Hematology, Biochemistry, CLIA, ELISA. 15+ products, 500+ clients, 24/7 support. Call +91 773 889 5976">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="https://www.ribosomesdiagnostics.com/assets/images/favicon.png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -22,13 +20,16 @@
         .product-card { transition: all 0.3s ease; cursor: pointer; }
         .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
         
-        /* WhatsApp Button */
-        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; z-index: 999; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.5); cursor: pointer; transition: all 0.3s ease; }
-        .whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 6px 30px rgba(37,211,102,0.7); }
+        .spec-table { width: 100%; border-collapse: collapse; }
+        .spec-table th, .spec-table td { padding: 12px; border: 1px solid #e5e7eb; text-align: left; }
+        .spec-table th { background: #f3f4f6; font-weight: 600; }
+        .spec-table tr:hover { background: #f9fafb; }
         
-        /* AI Chatbot */
+        .whatsapp-float { position: fixed; bottom: 100px; right: 20px; z-index: 999; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.5); cursor: pointer; transition: all 0.3s ease; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        
         .ai-chatbot { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .chatbot-button { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0066CC, #00A86B); color: white; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(0,102,204,0.5); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-size: 28px; animation: pulse 2s infinite; }
+        .chatbot-button { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0066CC, #00A86B); color: white; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(0,102,204,0.5); display: flex; align-items: center; justify-content: center; font-size: 28px; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { box-shadow: 0 8px 24px rgba(0,102,204,0.5); } 50% { box-shadow: 0 8px 32px rgba(0,102,204,0.9), 0 0 0 20px rgba(0,102,204,0.1); } }
         
         .chatbot-window { position: fixed; bottom: 100px; right: 20px; width: 420px; height: 650px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; z-index: 1001; }
@@ -51,11 +52,8 @@
         .message.bot .message-content { background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
         .message.user .message-content { background: linear-gradient(135deg, #0066CC, #004C99); color: white; }
         
-        .blog-card { transition: all 0.3s ease; cursor: pointer; }
-        .blog-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
-        
-        .job-card { transition: all 0.3s ease; }
-        .job-card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .client-logo { filter: grayscale(100%); opacity: 0.6; transition: all 0.3s ease; }
+        .client-logo:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
         
         @media (max-width: 768px) {
             .chatbot-window { width: calc(100vw - 40px); height: calc(100vh - 140px); }
@@ -89,25 +87,21 @@
                     <img src="https://www.ribosomesdiagnostics.com/assets/images/logo.png" alt="Ribosomes" class="h-12">
                 </div>
                 <div class="hidden md:flex space-x-6">
-                    <a href="#" onclick="showPage('home')" class="text-gray-700 hover:text-blue-600 font-medium transition">Home</a>
-                    <a href="#" onclick="showPage('about')" class="text-gray-700 hover:text-blue-600 font-medium transition">About</a>
+                    <a href="#" onclick="showPage('home')" class="text-gray-700 hover:text-blue-600 font-medium">Home</a>
+                    <a href="#" onclick="showPage('about')" class="text-gray-700 hover:text-blue-600 font-medium">About</a>
                     <div class="relative group">
-                        <a href="#" onclick="showPage('products')" class="text-gray-700 hover:text-blue-600 font-medium transition">Products <i class="fas fa-chevron-down text-xs ml-1"></i></a>
-                        <div class="absolute hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 py-2 w-56 border border-gray-100">
-                            <a href="#" onclick="showPage('products')" class="block px-4 py-2 hover:bg-blue-50 transition">All Products</a>
-                            <a href="#" onclick="showPage('hematology')" class="block px-4 py-2 hover:bg-blue-50 transition">Hematology</a>
-                            <a href="#" onclick="showPage('biochemistry')" class="block px-4 py-2 hover:bg-blue-50 transition">Biochemistry</a>
-                            <a href="#" onclick="showPage('clia')" class="block px-4 py-2 hover:bg-blue-50 transition">CLIA Systems</a>
+                        <a href="#" class="text-gray-700 hover:text-blue-600 font-medium">Products <i class="fas fa-chevron-down text-xs ml-1"></i></a>
+                        <div class="absolute hidden group-hover:block bg-white shadow-xl rounded-lg mt-2 py-2 w-56 border">
+                            <a href="#" onclick="showPage('products')" class="block px-4 py-2 hover:bg-blue-50">All Products</a>
+                            <a href="#" onclick="showPage('hematology')" class="block px-4 py-2 hover:bg-blue-50">Hematology</a>
+                            <a href="#" onclick="showPage('biochemistry')" class="block px-4 py-2 hover:bg-blue-50">Biochemistry</a>
+                            <a href="#" onclick="showPage('clia')" class="block px-4 py-2 hover:bg-blue-50">CLIA Systems</a>
                         </div>
                     </div>
-                    <a href="#" onclick="showPage('services')" class="text-gray-700 hover:text-blue-600 font-medium transition">Services</a>
-                    <a href="#" onclick="showPage('blog')" class="text-gray-700 hover:text-blue-600 font-medium transition">Blog</a>
-                    <a href="#" onclick="showPage('careers')" class="text-gray-700 hover:text-blue-600 font-medium transition">Careers</a>
-                    <a href="#" onclick="showPage('contact')" class="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
+                    <a href="#" onclick="showPage('services')" class="text-gray-700 hover:text-blue-600 font-medium">Services</a>
+                    <a href="#" onclick="showPage('clients')" class="text-gray-700 hover:text-blue-600 font-medium">Clients</a>
+                    <a href="#" onclick="showPage('contact')" class="text-gray-700 hover:text-blue-600 font-medium">Contact</a>
                 </div>
-                <button onclick="openChatbot()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-2 rounded-full font-semibold hover:from-green-600 hover:to-green-700 transition">
-                    <i class="fas fa-robot mr-2"></i>AI Chat
-                </button>
             </div>
         </div>
     </nav>
@@ -118,268 +112,197 @@
             <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-700/90" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920'); background-size: cover; background-position: center; background-blend-mode: overlay;"></div>
             <div class="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
                 <div class="text-white max-w-4xl mb-12">
-                    <div class="inline-block px-6 py-3 bg-green-500 rounded-full text-sm font-bold mb-6 animate-bounce">
-                        <i class="fas fa-robot mr-2"></i>AI-Powered Diagnostic Solutions - 24/7 Support
-                    </div>
                     <h1 class="text-5xl md:text-7xl font-bold mb-6">Advanced Diagnostic Equipment</h1>
-                    <p class="text-xl md:text-2xl mb-8 opacity-90">Complete Solutions for Modern Laboratories Across India</p>
+                    <p class="text-xl md:text-2xl mb-8">Complete Solutions for Modern Laboratories</p>
                 </div>
-                
                 <div class="flex gap-4 mb-12">
-                    <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition text-lg shadow-lg">
+                    <button onclick="showPage('products')" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 text-lg shadow-lg">
                         <i class="fas fa-microscope mr-2"></i>View Products
                     </button>
-                    <button onclick="openChatbot()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition text-lg shadow-lg">
+                    <button onclick="openChatbot()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg">
                         <i class="fas fa-robot mr-2"></i>Ask AI
                     </button>
                 </div>
-                
                 <div class="grid grid-cols-3 gap-8 text-white">
-                    <div><div class="text-4xl font-bold">15+</div><div class="text-sm opacity-90">Products</div></div>
-                    <div><div class="text-4xl font-bold">500+</div><div class="text-sm opacity-90">Happy Clients</div></div>
-                    <div><div class="text-4xl font-bold">24/7</div><div class="text-sm opacity-90">AI Support</div></div>
+                    <div><div class="text-4xl font-bold">15+</div><div class="text-sm">Products</div></div>
+                    <div><div class="text-4xl font-bold">500+</div><div class="text-sm">Clients</div></div>
+                    <div><div class="text-4xl font-bold">24/7</div><div class="text-sm">Support</div></div>
                 </div>
             </div>
         </div>
 
-        <!-- Newsletter Signup -->
-        <div class="py-12 bg-gradient-to-r from-blue-600 to-purple-600">
-            <div class="container mx-auto px-4 text-center">
-                <h3 class="text-3xl font-bold text-white mb-4">Stay Updated with Latest Healthcare News</h3>
-                <p class="text-white opacity-90 mb-6">Subscribe to our newsletter for product updates and industry insights</p>
-                <div class="max-w-md mx-auto flex gap-3">
-                    <input type="email" placeholder="Enter your email" class="flex-1 px-6 py-3 rounded-full outline-none">
-                    <button class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">Subscribe</button>
+        <!-- Client Logos Section -->
+        <div class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Trusted by Leading Healthcare Institutions</h2>
+                <div class="grid grid-cols-2 md:grid-cols-6 gap-8 items-center">
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Apollo</div>
+                    </div>
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Max</div>
+                    </div>
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Fortis</div>
+                    </div>
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Medanta</div>
+                    </div>
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Manipal</div>
+                    </div>
+                    <div class="client-logo flex items-center justify-center p-4">
+                        <div class="text-4xl font-bold text-gray-400">Narayana</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- BLOG/NEWS PAGE -->
-    <section id="blog" class="page-section">
-        <div class="container mx-auto px-4 py-20">
-            <h1 class="text-5xl font-bold text-center mb-4">Blog & News</h1>
-            <p class="text-xl text-center text-gray-600 mb-12">Latest updates from the world of diagnostics</p>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Dec 10, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Latest Advances in Hematology Analysis</h3>
-                        <p class="text-gray-600 mb-4">Discover how AI-powered hematology analyzers are revolutionizing blood cell analysis with unprecedented accuracy...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
+        <!-- Certifications -->
+        <div class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12">Certifications & Quality Standards</h2>
+                <div class="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <i class="fas fa-certificate text-5xl text-blue-600 mb-3"></i>
+                        <h3 class="font-bold text-lg">ISO 9001:2015</h3>
+                        <p class="text-sm text-gray-600">Quality Management</p>
                     </div>
-                </div>
-
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Dec 8, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">New Product Launch: Mispa CX4</h3>
-                        <p class="text-gray-600 mb-4">We're excited to announce the launch of Mispa CX4, our most advanced biochemistry analyzer with 400 tests/hour...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <i class="fas fa-check-circle text-5xl text-green-600 mb-3"></i>
+                        <h3 class="font-bold text-lg">CE Certified</h3>
+                        <p class="text-sm text-gray-600">European Standards</p>
                     </div>
-                </div>
-
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1581093458791-9d42e1c5e2e8?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Dec 5, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Success Story: City Hospital Mumbai</h3>
-                        <p class="text-gray-600 mb-4">Learn how City Hospital improved their lab efficiency by 40% with our BC5140 hematology analyzer...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <i class="fas fa-shield-alt text-5xl text-purple-600 mb-3"></i>
+                        <h3 class="font-bold text-lg">FDA Approved</h3>
+                        <p class="text-sm text-gray-600">US Standards</p>
                     </div>
-                </div>
-
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1581093804475-577d72e38aa0?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Dec 1, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Understanding CLIA Technology</h3>
-                        <p class="text-gray-600 mb-4">A comprehensive guide to Chemiluminescence Immunoassay technology and its applications in modern diagnostics...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Nov 28, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Healthcare Expo 2025 Highlights</h3>
-                        <p class="text-gray-600 mb-4">Recap of our participation in India's largest healthcare equipment exhibition with live product demonstrations...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
-                    </div>
-                </div>
-
-                <div class="blog-card bg-white rounded-2xl shadow-lg overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074?w=800" alt="Blog" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <div class="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                            <span><i class="far fa-calendar mr-2"></i>Nov 25, 2025</span>
-                            <span><i class="far fa-user mr-2"></i>Admin</span>
-                        </div>
-                        <h3 class="text-2xl font-bold mb-3">Maintenance Tips for Lab Equipment</h3>
-                        <p class="text-gray-600 mb-4">Essential maintenance practices to ensure optimal performance and longevity of your diagnostic equipment...</p>
-                        <button class="text-blue-600 font-semibold hover:text-blue-700">Read More <i class="fas fa-arrow-right ml-2"></i></button>
+                    <div class="bg-white p-6 rounded-xl shadow-lg text-center">
+                        <i class="fas fa-award text-5xl text-orange-600 mb-3"></i>
+                        <h3 class="font-bold text-lg">ISO 13485</h3>
+                        <p class="text-sm text-gray-600">Medical Devices</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CAREERS PAGE -->
-    <section id="careers" class="page-section">
+    <!-- PRODUCT DETAIL PAGE TEMPLATE -->
+    <section id="product-detail" class="page-section">
         <div class="container mx-auto px-4 py-20">
-            <h1 class="text-5xl font-bold text-center mb-4">Join Our Team</h1>
-            <p class="text-xl text-center text-gray-600 mb-12">Build your career with India's leading diagnostic equipment distributor</p>
+            <!-- Breadcrumb -->
+            <div class="text-sm text-gray-600 mb-6">
+                <a href="#" onclick="showPage('home')" class="hover:text-blue-600">Home</a> / 
+                <a href="#" onclick="showPage('products')" class="hover:text-blue-600">Products</a> / 
+                <span id="product-breadcrumb">Product Name</span>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <!-- Product Images -->
+                <div>
+                    <div class="bg-white p-8 rounded-2xl shadow-lg mb-4">
+                        <img id="product-main-image" src="" alt="Product" class="w-full h-96 object-contain">
+                    </div>
+                    <div class="grid grid-cols-4 gap-4">
+                        <div class="bg-white p-2 rounded-lg shadow cursor-pointer hover:shadow-lg">
+                            <img src="" alt="Thumb" class="w-full h-20 object-contain">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <div class="bg-blue-50 inline-block px-4 py-1 rounded-full text-sm font-semibold text-blue-600 mb-4" id="product-category">Category</div>
+                    <h1 class="text-4xl font-bold mb-4" id="product-name">Product Name</h1>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600">(50+ reviews)</span>
+                    </div>
+                    <p class="text-lg text-gray-600 mb-8" id="product-description">Product description goes here...</p>
+                    
+                    <!-- Key Features -->
+                    <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+                        <h3 class="text-xl font-bold mb-4">Key Features</h3>
+                        <ul class="space-y-2" id="product-features">
+                            <li><i class="fas fa-check text-green-600 mr-2"></i>Feature 1</li>
+                        </ul>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-4">
+                        <button onclick="showQuoteForm()" class="flex-1 bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 font-bold text-lg">
+                            <i class="fas fa-file-invoice mr-2"></i>Request Quote
+                        </button>
+                        <button onclick="openChatbot()" class="flex-1 bg-green-600 text-white px-6 py-4 rounded-lg hover:bg-green-700 font-bold text-lg">
+                            <i class="fas fa-robot mr-2"></i>Ask AI
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Specifications Table -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg mb-12">
+                <h2 class="text-3xl font-bold mb-6">Technical Specifications</h2>
+                <table class="spec-table" id="product-specs">
+                    <tr><th>Parameter</th><th>Specification</th></tr>
+                </table>
+            </div>
+
+            <!-- Related Products -->
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Related Products</h2>
+                <div class="grid md:grid-cols-4 gap-6" id="related-products">
+                    <!-- Related products will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENTS PAGE -->
+    <section id="clients" class="page-section">
+        <div class="container mx-auto px-4 py-20">
+            <h1 class="text-5xl font-bold text-center mb-4">Our Clients</h1>
+            <p class="text-xl text-center text-gray-600 mb-12">Trusted by 500+ healthcare institutions across India</p>
             
-            <!-- Company Culture -->
-            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-12 rounded-3xl shadow-2xl mb-16">
-                <div class="text-center mb-8">
-                    <h2 class="text-3xl font-bold mb-4">Why Work With Us?</h2>
-                    <p class="text-xl opacity-90">Join a team that's transforming healthcare in India</p>
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                    <div class="text-5xl font-bold text-blue-600 mb-2">500+</div>
+                    <div class="text-gray-600">Healthcare Institutions</div>
                 </div>
-                <div class="grid md:grid-cols-4 gap-6">
-                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
-                        <i class="fas fa-chart-line text-4xl mb-3"></i>
-                        <h3 class="font-bold text-lg mb-2">Career Growth</h3>
-                        <p class="text-sm opacity-90">Continuous learning opportunities</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
-                        <i class="fas fa-users text-4xl mb-3"></i>
-                        <h3 class="font-bold text-lg mb-2">Great Team</h3>
-                        <p class="text-sm opacity-90">Collaborative work environment</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
-                        <i class="fas fa-gift text-4xl mb-3"></i>
-                        <h3 class="font-bold text-lg mb-2">Benefits</h3>
-                        <p class="text-sm opacity-90">Competitive salary & perks</p>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl text-center">
-                        <i class="fas fa-balance-scale text-4xl mb-3"></i>
-                        <h3 class="font-bold text-lg mb-2">Work-Life Balance</h3>
-                        <p class="text-sm opacity-90">Flexible working hours</p>
-                    </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                    <div class="text-5xl font-bold text-green-600 mb-2">50+</div>
+                    <div class="text-gray-600">Cities Covered</div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg text-center">
+                    <div class="text-5xl font-bold text-purple-600 mb-2">98%</div>
+                    <div class="text-gray-600">Client Satisfaction</div>
                 </div>
             </div>
 
-            <!-- Current Openings -->
-            <h2 class="text-3xl font-bold mb-8">Current Openings</h2>
-            <div class="space-y-6">
-                <div class="job-card bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-2">Sales Manager</h3>
-                            <div class="flex gap-4 text-gray-600">
-                                <span><i class="fas fa-map-marker-alt mr-2"></i>Mumbai</span>
-                                <span><i class="fas fa-briefcase mr-2"></i>Full-time</span>
-                                <span><i class="fas fa-clock mr-2"></i>5+ years exp</span>
-                            </div>
-                        </div>
-                        <button onclick="alert('Application form will open')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-                            Apply Now
-                        </button>
-                    </div>
-                    <p class="text-gray-600 mb-4">Lead our sales team and drive business growth across Maharashtra. Experience in medical equipment sales preferred.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Sales</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Management</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Healthcare</span>
-                    </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <div class="text-3xl font-bold text-gray-700 mb-2">Apollo Hospitals</div>
+                    <div class="text-sm text-gray-500">Pan India</div>
                 </div>
-
-                <div class="job-card bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-2">Service Engineer</h3>
-                            <div class="flex gap-4 text-gray-600">
-                                <span><i class="fas fa-map-marker-alt mr-2"></i>Pune</span>
-                                <span><i class="fas fa-briefcase mr-2"></i>Full-time</span>
-                                <span><i class="fas fa-clock mr-2"></i>3+ years exp</span>
-                            </div>
-                        </div>
-                        <button onclick="alert('Application form will open')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-                            Apply Now
-                        </button>
-                    </div>
-                    <p class="text-gray-600 mb-4">Install, maintain, and repair diagnostic equipment. Technical background in electronics or biomedical engineering required.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Technical</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Field Service</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Engineering</span>
-                    </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <div class="text-3xl font-bold text-gray-700 mb-2">Max Healthcare</div>
+                    <div class="text-sm text-gray-500">Delhi NCR</div>
                 </div>
-
-                <div class="job-card bg-white p-8 rounded-2xl shadow-lg">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-2">Marketing Executive</h3>
-                            <div class="flex gap-4 text-gray-600">
-                                <span><i class="fas fa-map-marker-alt mr-2"></i>Navi Mumbai</span>
-                                <span><i class="fas fa-briefcase mr-2"></i>Full-time</span>
-                                <span><i class="fas fa-clock mr-2"></i>2+ years exp</span>
-                            </div>
-                        </div>
-                        <button onclick="alert('Application form will open')" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">
-                            Apply Now
-                        </button>
-                    </div>
-                    <p class="text-gray-600 mb-4">Develop and execute marketing strategies for our diagnostic equipment portfolio. Digital marketing experience is a plus.</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Marketing</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Digital</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Strategy</span>
-                    </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <div class="text-3xl font-bold text-gray-700 mb-2">Fortis</div>
+                    <div class="text-sm text-gray-500">Multiple Cities</div>
                 </div>
-            </div>
-
-            <!-- Application Form -->
-            <div class="mt-16 bg-gray-50 p-8 rounded-2xl">
-                <h2 class="text-3xl font-bold mb-6 text-center">Submit Your Application</h2>
-                <form class="max-w-2xl mx-auto space-y-4">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <input type="text" placeholder="Full Name *" class="px-4 py-3 border-2 border-gray-300 rounded-lg outline-none focus:border-blue-600" required>
-                        <input type="email" placeholder="Email *" class="px-4 py-3 border-2 border-gray-300 rounded-lg outline-none focus:border-blue-600" required>
-                    </div>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <input type="tel" placeholder="Phone *" class="px-4 py-3 border-2 border-gray-300 rounded-lg outline-none focus:border-blue-600" required>
-                        <select class="px-4 py-3 border-2 border-gray-300 rounded-lg outline-none focus:border-blue-600" required>
-                            <option>Select Position</option>
-                            <option>Sales Manager</option>
-                            <option>Service Engineer</option>
-                            <option>Marketing Executive</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <textarea placeholder="Cover Letter" rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg outline-none focus:border-blue-600"></textarea>
-                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-3"></i>
-                        <p class="text-gray-600 mb-2">Upload Resume (PDF, DOC)</p>
-                        <input type="file" class="hidden" id="resume">
-                        <label for="resume" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-lg cursor-pointer hover:bg-blue-700 transition">
-                            Choose File
-                        </label>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition font-bold text-lg">
-                        <i class="fas fa-paper-plane mr-2"></i>Submit Application
-                    </button>
-                </form>
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
+                    <div class="text-3xl font-bold text-gray-700 mb-2">Medanta</div>
+                    <div class="text-sm text-gray-500">Gurugram</div>
+                </div>
             </div>
         </div>
     </section>
@@ -387,117 +310,40 @@
     <!-- CONTACT PAGE -->
     <section id="contact" class="page-section">
         <div class="container mx-auto px-4 py-20">
-            <h1 class="text-5xl font-bold text-center mb-4">Contact Us</h1>
-            <p class="text-xl text-center text-gray-600 mb-12">Get in touch with our team</p>
-            
-            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto mb-16">
+            <h1 class="text-5xl font-bold text-center mb-12">Contact Us</h1>
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
                 <div>
                     <div class="bg-gray-50 p-8 rounded-xl shadow-lg">
-                        <h3 class="text-2xl font-bold mb-6">Send us a Message</h3>
+                        <h3 class="text-2xl font-bold mb-6">Send Message</h3>
                         <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! We will contact you soon.');">
-                            <input type="text" placeholder="Full Name *" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-600 outline-none" required>
-                            <input type="email" placeholder="Email *" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-600 outline-none" required>
-                            <input type="tel" placeholder="Phone *" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-600 outline-none" required>
-                            <textarea placeholder="Message *" rows="4" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-blue-600 outline-none" required></textarea>
-                            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 transition font-bold text-lg">
+                            <input type="text" placeholder="Name *" class="w-full px-4 py-3 border-2 rounded-lg outline-none focus:border-blue-600" required>
+                            <input type="email" placeholder="Email *" class="w-full px-4 py-3 border-2 rounded-lg outline-none focus:border-blue-600" required>
+                            <input type="tel" placeholder="Phone *" class="w-full px-4 py-3 border-2 rounded-lg outline-none focus:border-blue-600" required>
+                            <textarea placeholder="Message *" rows="4" class="w-full px-4 py-3 border-2 rounded-lg outline-none focus:border-blue-600" required></textarea>
+                            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-4 rounded-lg hover:bg-blue-700 font-bold text-lg">
                                 <i class="fas fa-paper-plane mr-2"></i>Send Message
                             </button>
                         </form>
                     </div>
                 </div>
-                
                 <div class="space-y-6">
                     <div class="bg-white p-6 rounded-xl shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-2xl text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2">Address</h4>
-                                <p class="text-gray-600">Shop No-1&2, Navi Mumbai Panvel-410206, Maharashtra, India</p>
-                            </div>
-                        </div>
+                        <i class="fas fa-map-marker-alt text-3xl text-blue-600 mb-3"></i>
+                        <h4 class="font-bold text-lg mb-2">Address</h4>
+                        <p class="text-gray-600">Shop No-1&2, Navi Mumbai Panvel-410206</p>
                     </div>
-
                     <div class="bg-white p-6 rounded-xl shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-phone text-2xl text-green-600"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2">Phone</h4>
-                                <a href="tel:+917738895976" class="text-gray-600 hover:text-blue-600 text-lg font-semibold">+91 773 889 5976</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white shadow-lg">
-                        <div class="flex items-start gap-4">
-                            <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                                <i class="fas fa-robot text-2xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-2">AI Assistant</h4>
-                                <p class="mb-3 opacity-90">Get instant answers 24/7</p>
-                                <button onclick="openChatbot()" class="bg-white text-green-600 px-6 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
-                                    <i class="fas fa-comments mr-2"></i>Chat Now
-                                </button>
-                            </div>
-                        </div>
+                        <i class="fas fa-phone text-3xl text-green-600 mb-3"></i>
+                        <h4 class="font-bold text-lg mb-2">Phone</h4>
+                        <a href="tel:+917738895976" class="text-gray-600 text-lg font-semibold">+91 773 889 5976</a>
                     </div>
                 </div>
-            </div>
-
-            <!-- Google Maps Embed -->
-            <div class="rounded-2xl overflow-hidden shadow-2xl">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.8267524891647!2d73.11!3d19.01!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDAwJzM2LjAiTiA3M8KwMDYnMzYuMCJF!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <img src="https://www.ribosomesdiagnostics.com/assets/images/logo.png" alt="Ribosomes" class="h-12 mb-4 brightness-0 invert">
-                    <p class="text-gray-400 mb-4">Leading distributor of diagnostic equipment in India since 2020.</p>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" onclick="showPage('about')" class="hover:text-white transition">About Us</a></li>
-                        <li><a href="#" onclick="showPage('products')" class="hover:text-white transition">Products</a></li>
-                        <li><a href="#" onclick="showPage('services')" class="hover:text-white transition">Services</a></li>
-                        <li><a href="#" onclick="showPage('blog')" class="hover:text-white transition">Blog</a></li>
-                        <li><a href="#" onclick="showPage('careers')" class="hover:text-white transition">Careers</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Products</h3>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" onclick="showPage('hematology')" class="hover:text-white transition">Hematology</a></li>
-                        <li><a href="#" onclick="showPage('biochemistry')" class="hover:text-white transition">Biochemistry</a></li>
-                        <li><a href="#" onclick="showPage('clia')" class="hover:text-white transition">CLIA</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl font-bold mb-4">Contact</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><i class="fas fa-phone mr-2"></i>+91 773 889 5976</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i>Navi Mumbai Panvel</li>
-                        <li><button onclick="openChatbot()" class="text-green-400 hover:text-green-300 transition"><i class="fas fa-robot mr-2"></i>24/7 AI Chat</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-                <p>&copy; 2025 Ribosomes Diagnostics. All rights reserved. | Powered by AI</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/917738895976?text=Hello%20Ribosomes%20Diagnostics!%20I%20need%20information%20about%20your%20products." target="_blank" class="whatsapp-float" title="Chat on WhatsApp">
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/917738895976" target="_blank" class="whatsapp-float">
         <i class="fab fa-whatsapp text-white text-3xl"></i>
     </a>
 
@@ -506,32 +352,24 @@
         <button class="chatbot-button" onclick="toggleChatbot()">
             <i class="fas fa-robot"></i>
         </button>
-        
         <div id="chatbotWindow" class="chatbot-window">
             <div class="chatbot-header flex justify-between items-center">
                 <div>
                     <div class="font-bold text-xl">AI Assistant</div>
                     <div class="text-sm opacity-90">Always here to help</div>
                 </div>
-                <button onclick="toggleChatbot()" class="text-white hover:text-gray-200 text-2xl">
+                <button onclick="toggleChatbot()" class="text-white text-2xl">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            
             <div id="chatMessages" class="chatbot-messages">
                 <div class="message bot">
                     <div class="message-avatar"><i class="fas fa-robot"></i></div>
                     <div class="message-content">
-                        👋 Hello! I'm your AI assistant. I can help you with:<br><br>
-                        • Product information<br>
-                        • Pricing & quotes<br>
-                        • Technical support<br>
-                        • Career inquiries<br><br>
-                        What would you like to know?
+                        👋 Hello! I can help you with product information, pricing, and technical support. What would you like to know?
                     </div>
                 </div>
             </div>
-            
             <div class="chatbot-input">
                 <input type="text" id="chatInput" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter') sendMessage()">
                 <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
@@ -540,50 +378,128 @@
     </div>
 
     <script>
+        // Product Database
+        const products = {
+            'mispa-count-x-plus': {
+                name: 'Mispa Count X Plus',
+                category: 'Hematology',
+                description: '3-Part Hematology Analyzer with 21 parameters and 60 samples/hour throughput',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-count-x-plus.jpg',
+                features: [
+                    '21 reportable parameters',
+                    '60 samples per hour',
+                    '3-Part differential',
+                    'Compact design',
+                    'User-friendly interface'
+                ],
+                specs: {
+                    'Type': '3-Part Hematology Analyzer',
+                    'Parameters': '21',
+                    'Throughput': '60 samples/hour',
+                    'Sample Volume': '20 µL',
+                    'Technology': 'Impedance + Colorimetry',
+                    'Display': '10.4" Touch Screen'
+                }
+            },
+            'bc5140': {
+                name: 'BC5140',
+                category: 'Hematology',
+                description: '5-Part Hematology Analyzer with 25 parameters and advanced AI pattern recognition',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5140-5-part-hematology-analyzer.jpg',
+                features: [
+                    '25 reportable parameters',
+                    'Flow Cytometer technology',
+                    'Tri-angle Laser Scatter',
+                    'AI pattern recognition',
+                    'Manufactured by Mindray'
+                ],
+                specs: {
+                    'Type': '5-Part Hematology Analyzer',
+                    'Parameters': '25',
+                    'Throughput': '60 samples/hour',
+                    'Technology': 'Flow Cytometry',
+                    'Manufacturer': 'Mindray',
+                    'Display': '10.4" Touch Screen'
+                }
+            },
+            'mispa-nano-plus': {
+                name: 'Mispa Nano Plus',
+                category: 'Biochemistry',
+                description: 'Fully automated biochemistry analyzer with random access and high throughput',
+                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-nano-plus.jpg',
+                features: [
+                    'Fully automated',
+                    'Random access system',
+                    'High throughput',
+                    'AI quality control',
+                    'Discrete analysis'
+                ],
+                specs: {
+                    'Type': 'Fully Automated Biochemistry',
+                    'Throughput': '200 tests/hour',
+                    'Sample Volume': '2-35 µL',
+                    'Reagent Positions': '60',
+                    'Sample Positions': '100',
+                    'Technology': 'Photometric'
+                }
+            }
+        };
+
         function showPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
             const page = document.getElementById(pageId);
             if (page) {
                 page.classList.add('active');
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
-        
+
+        function showProduct(productId) {
+            const product = products[productId];
+            if (!product) return;
+
+            document.getElementById('product-breadcrumb').textContent = product.name;
+            document.getElementById('product-category').textContent = product.category;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-description').textContent = product.description;
+            document.getElementById('product-main-image').src = product.image;
+
+            const featuresList = document.getElementById('product-features');
+            featuresList.innerHTML = product.features.map(f => 
+                `<li><i class="fas fa-check text-green-600 mr-2"></i>${f}</li>`
+            ).join('');
+
+            const specsTable = document.getElementById('product-specs');
+            specsTable.innerHTML = '<tr><th>Parameter</th><th>Specification</th></tr>' +
+                Object.entries(product.specs).map(([key, val]) => 
+                    `<tr><td>${key}</td><td>${val}</td></tr>`
+                ).join('');
+
+            showPage('product-detail');
+        }
+
         function toggleChatbot() {
             document.getElementById('chatbotWindow').classList.toggle('active');
         }
-        
+
         function openChatbot() {
             document.getElementById('chatbotWindow').classList.add('active');
         }
-        
+
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
             if (!message) return;
-            
+
             addMessage(message, 'user');
             input.value = '';
-            
+
             setTimeout(() => {
-                const response = getAIResponse(message);
+                const response = 'Thank you for your inquiry! For detailed information, please call +91 773 889 5976 or fill our contact form.';
                 addMessage(response, 'bot');
             }, 1000);
         }
-        
-        function getAIResponse(message) {
-            const msg = message.toLowerCase();
-            
-            if (msg.includes('career') || msg.includes('job')) return 'We have exciting career opportunities! Check our Careers page for current openings in Sales, Service, and Marketing. Want me to tell you more about a specific role?';
-            if (msg.includes('blog') || msg.includes('news')) return 'Visit our Blog section for latest updates on diagnostic technology, product launches, and industry insights. We post new articles weekly!';
-            if (msg.includes('price') || msg.includes('cost')) return 'For detailed pricing, please call +91 773 889 5976 or fill our contact form. Our team will provide customized quotes based on your requirements!';
-            if (msg.includes('whatsapp')) return 'You can also reach us on WhatsApp! Click the green WhatsApp button at the bottom right to start chatting directly.';
-            
-            return 'I can help you with product information, pricing, careers, and more. Try asking about specific products or services, or call us at +91 773 889 5976!';
-        }
-        
+
         function addMessage(text, type) {
             const messages = document.getElementById('chatMessages');
             const messageDiv = document.createElement('div');
@@ -595,11 +511,9 @@
             messages.appendChild(messageDiv);
             messages.scrollTop = messages.scrollHeight;
         }
-        
-        function askAI(question) {
-            document.getElementById('chatInput').value = question;
-            openChatbot();
-            setTimeout(() => sendMessage(), 300);
+
+        function showQuoteForm() {
+            alert('Quote request form will open. For immediate assistance, call +91 773 889 5976');
         }
     </script>
 </body>
