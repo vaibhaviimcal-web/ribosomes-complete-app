@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ribosomes Diagnostics | AI-Powered Platform with Gemini</title>
+    <meta name="description" content="Advanced Diagnostic Solutions with Real Google Gemini AI">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="https://www.ribosomesdiagnostics.com/assets/images/favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.6; color: #333; }
+        h1, h2, h3, h4 { font-family: 'Poppins', sans-serif; }
+        
+        .ai-chatbot { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .chatbot-button { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, #0066CC, #00A86B); color: white; border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(0,102,204,0.5); transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; font-size: 28px; position: relative; }
+        .chatbot-button:hover { transform: scale(1.15); box-shadow: 0 12px 32px rgba(0,102,204,0.7); }
+        .chatbot-button.pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 8px 24px rgba(0,102,204,0.5); } 50% { box-shadow: 0 8px 32px rgba(0,102,204,0.9), 0 0 0 20px rgba(0,102,204,0.1); } }
+        
+        .chatbot-window { position: fixed; bottom: 100px; right: 20px; width: 420px; height: 650px; background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); display: none; flex-direction: column; overflow: hidden; }
+        .chatbot-window.active { display: flex; animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.9); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        
+        .chatbot-header { background: linear-gradient(135deg, #0066CC, #004C99); color: white; padding: 24px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .chatbot-messages { flex: 1; overflow-y: auto; padding: 24px; background: linear-gradient(to bottom, #f8f9fa, #ffffff); }
+        .chatbot-input { padding: 20px; border-top: 1px solid #e0e0e0; display: flex; gap: 12px; background: white; }
+        .chatbot-input input { flex: 1; padding: 14px 20px; border: 2px solid #e0e0e0; border-radius: 28px; outline: none; font-size: 15px; transition: all 0.3s ease; }
+        .chatbot-input input:focus { border-color: #0066CC; box-shadow: 0 0 0 3px rgba(0,102,204,0.1); }
+        .chatbot-input button { padding: 14px 20px; background: #0066CC; color: white; border: none; border-radius: 28px; cursor: pointer; transition: all 0.3s ease; min-width: 50px; }
+        .chatbot-input button:hover { background: #004C99; transform: scale(1.05); }
+        
+        .message { margin-bottom: 20px; display: flex; gap: 12px; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .message.bot { flex-direction: row; }
+        .message.user { flex-direction: row-reverse; }
+        .message-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .message.bot .message-avatar { background: linear-gradient(135deg, #0066CC, #00A86B); color: white; }
+        .message.user .message-avatar { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .message-content { max-width: 75%; padding: 14px 18px; border-radius: 18px; font-size: 15px; line-height: 1.5; }
+        .message.bot .message-content { background: white; border-bottom-left-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .message.user .message-content { background: linear-gradient(135deg, #0066CC, #004C99); color: white; border-bottom-right-radius: 4px; box-shadow: 0 2px 8px rgba(0,102,204,0.3); }
+        
+        .typing-indicator { display: flex; gap: 5px; padding: 14px 18px; }
+        .typing-indicator span { width: 10px; height: 10px; background: #999; border-radius: 50%; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); opacity: 0.7; } 30% { transform: translateY(-12px); opacity: 1; } }
+        
+        .product-card { position: relative; overflow: hidden; border-radius: 16px; background: white; transition: all 0.4s ease; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .product-card img { transition: transform 0.6s ease; }
+        .product-card:hover img { transform: scale(1.08); }
+        
+        .ai-badge { position: absolute; top: -8px; right: -8px; background: linear-gradient(135deg, #00A86B, #00D084); color: white; padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: bold; box-shadow: 0 4px 12px rgba(0,168,107,0.4); z-index: 10; }
+        
+        @media (max-width: 768px) {
+            .chatbot-window { width: calc(100vw - 40px); height: calc(100vh - 140px); right: 20px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Bar -->
+    <div class="bg-gray-900 text-white py-2 text-sm">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="tel:+917738895976" class="hover:text-blue-400"><i class="fas fa-phone mr-2"></i>+91 773 889 5976</a>
+                <span class="hidden md:inline">Shop No-1&2, Navi Mumbai Panvel-410206</span>
+            </div>
+            <div class="flex space-x-3">
+                <a href="https://www.facebook.com/" target="_blank" class="hover:text-blue-400"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/" target="_blank" class="hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+                <a href="https://in.linkedin.com/" target="_blank" class="hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" class="hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-40">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <img src="https://www.ribosomesdiagnostics.com/assets/images/logo.png" alt="Ribosomes Diagnostics" class="h-12">
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="#home" class="text-gray-700 hover:text-blue-600 transition font-medium">Home</a>
+                    <a href="#products" class="text-gray-700 hover:text-blue-600 transition font-medium">Products</a>
+                    <a href="#about" class="text-gray-700 hover:text-blue-600 transition font-medium">About Us</a>
+                    <a href="#contact" class="text-gray-700 hover:text-blue-600 transition font-medium">Contact</a>
+                    <span class="px-4 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white text-xs rounded-full font-bold flex items-center gap-2">
+                        <i class="fas fa-robot"></i> Powered by Gemini AI
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-blue-700/90" style="background-image: url('https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1920'); background-size: cover; background-position: center; background-blend-mode: overlay;"></div>
+        <div class="relative container mx-auto px-4 h-full flex flex-col justify-center items-center text-center">
+            <div class="text-white max-w-4xl mb-12">
+                <div class="inline-block px-6 py-3 bg-green-500 rounded-full text-sm font-bold mb-6 animate-bounce">
+                    <i class="fas fa-robot mr-2"></i>Real Google Gemini AI - 100% FREE Forever!
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">Advanced Diagnostic Solutions</h1>
+                <p class="text-xl md:text-2xl mb-8 opacity-90">Ask AI anything - Powered by Google Gemini 2.0 Flash!</p>
+            </div>
+            
+            <div class="flex gap-4 mb-12">
+                <button onclick="openChatbot()" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition text-lg shadow-lg">
+                    <i class="fas fa-comments mr-2"></i>Chat with Gemini AI
+                </button>
+                <button onclick="testGeminiAPI()" class="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-4 rounded-full font-bold hover:from-green-600 hover:to-green-700 transition text-lg shadow-lg">
+                    <i class="fas fa-robot mr-2"></i>Test AI Now
+                </button>
+            </div>
+            
+            <div class="flex gap-8 text-white">
+                <div><div class="text-4xl font-bold">12+</div><div class="text-sm opacity-90">AI-Enhanced Products</div></div>
+                <div><div class="text-4xl font-bold">500+</div><div class="text-sm opacity-90">Happy Clients</div></div>
+                <div><div class="text-4xl font-bold">24/7</div><div class="text-sm opacity-90">Gemini AI Support</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Our Products</h2>
+                <p class="text-xl text-gray-600">AI-powered diagnostic analyzers with Gemini intelligence</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="product-card shadow-lg">
+                    <div class="relative">
+                        <div class="overflow-hidden h-64">
+                            <img src="https://www.ribosomesdiagnostics.com/assets/product/mispa-nano-plus.jpg" alt="Mispa Nano Plus" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ai-badge"><i class="fas fa-robot mr-1"></i>Gemini AI</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-blue-600 font-semibold mb-2">BIOCHEMISTRY</div>
+                        <h3 class="text-2xl font-bold mb-3">Mispa Nano Plus</h3>
+                        <p class="text-gray-600 mb-4">Fully automated with Gemini AI quality control</p>
+                        <button onclick="askAI('Tell me about Mispa Nano Plus')" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-robot mr-2"></i>Ask Gemini AI
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card shadow-lg">
+                    <div class="relative">
+                        <div class="overflow-hidden h-64">
+                            <img src="https://www.ribosomesdiagnostics.com/assets/product/bc5140-5-part-hematology-analyzer.jpg" alt="BC5140" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ai-badge"><i class="fas fa-robot mr-1"></i>Gemini AI</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-blue-600 font-semibold mb-2">HEMATOLOGY</div>
+                        <h3 class="text-2xl font-bold mb-3">BC5140</h3>
+                        <p class="text-gray-600 mb-4">5-Part analyzer with Gemini pattern recognition</p>
+                        <button onclick="askAI('Tell me about BC5140')" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-robot mr-2"></i>Ask Gemini AI
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card shadow-lg">
+                    <div class="relative">
+                        <div class="overflow-hidden h-64">
+                            <img src="https://www.ribosomesdiagnostics.com/assets/product/mispa-i200.jpg" alt="MISPA i200" class="w-full h-full object-cover">
+                        </div>
+                        <div class="ai-badge"><i class="fas fa-robot mr-1"></i>Gemini AI</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="text-sm text-blue-600 font-semibold mb-2">CLIA</div>
+                        <h3 class="text-2xl font-bold mb-3">MISPA i200</h3>
+                        <p class="text-gray-600 mb-4">Chemiluminescence with Gemini validation</p>
+                        <button onclick="askAI('Tell me about MISPA i200')" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-robot mr-2"></i>Ask Gemini AI
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">About Ribosomes Diagnostics</h2>
+                    <p class="text-lg text-gray-600 mb-6">Established on 21st February 2020 in Panvel, Maharashtra. We are one of the trusted and reputed MARKETERS & DISTRIBUTORS of Diagnostic products in India.</p>
+                    <p class="text-lg text-gray-600 mb-6">Now powered by Google Gemini AI for intelligent product recommendations, 24/7 customer support, and advanced analytics.</p>
+                    <div class="flex gap-4 mb-6">
+                        <div class="flex-1 bg-blue-50 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">500+</div>
+                            <div class="text-gray-600">Healthcare Partners</div>
+                        </div>
+                        <div class="flex-1 bg-green-50 p-4 rounded-lg">
+                            <div class="text-3xl font-bold text-green-600 mb-2">12+</div>
+                            <div class="text-gray-600">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://www.ribosomesdiagnostics.com/assets/images/banner/hm3-single-slider-img-2.png" alt="About Us" class="rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-xl text-gray-600">24/7 Gemini AI support or speak with our team</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <div class="bg-gray-50 p-8 rounded-xl">
+                        <h3 class="text-2xl font-bold mb-6">Send us a message</h3>
+                        <form class="space-y-4" onsubmit="handleContactForm(event)">
+                            <input type="text" placeholder="Your Name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" required>
+                            <input type="email" placeholder="Your Email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" required>
+                            <input type="tel" placeholder="Phone Number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" required>
+                            <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-600" required></textarea>
+                            <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl">
+                            <i class="fas fa-map-marker-alt text-3xl text-blue-600 mt-1"></i>
+                            <div>
+                                <div class="font-bold text-lg mb-1">Address</div>
+                                <div class="text-gray-600">Shop No-1&2, Building-Gopal Krishna Vichumbe<br>Raigad-Maharashtra-Navi Mumbai Panvel-410206, India</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl">
+                            <i class="fas fa-phone text-3xl text-blue-600 mt-1"></i>
+                            <div>
+                                <div class="font-bold text-lg mb-1">Phone</div>
+                                <a href="tel:+917738895976" class="text-gray-600 hover:text-blue-600 text-lg">+91 773 889 5976</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 bg-gradient-to-r from-green-500 to-green-600 p-6 rounded-xl text-white">
+                            <i class="fas fa-robot text-3xl mt-1"></i>
+                            <div>
+                                <div class="font-bold text-lg mb-1">Gemini AI Assistant</div>
+                                <div class="mb-3 opacity-90">24/7 instant support powered by Google</div>
+                                <button onclick="openChatbot()" class="bg-white text-green-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition font-semibold">
+                                    <i class="fas fa-comments mr-2"></i>Chat Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <img src="https://www.ribosomesdiagnostics.com/assets/images/logo.png" alt="Ribosomes Diagnostics" class="h-12 mb-4 brightness-0 invert">
+                    <p class="text-gray-400 mb-4">AI-Powered Diagnostic Solutions with Google Gemini</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Products</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Hematology</a></li>
+                        <li><a href="#" class="hover:text-white">Biochemistry</a></li>
+                        <li><a href="#" class="hover:text-white">CLIA</a></li>
+                        <li><a href="#" class="hover:text-white">ELISA</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#about" class="hover:text-white">About Us</a></li>
+                        <li><a href="#contact" class="hover:text-white">Contact</a></li>
+                        <li><button onclick="openChatbot()" class="hover:text-white">Gemini AI</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contact</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li><i class="fas fa-phone mr-2"></i>+91 773 889 5976</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Navi Mumbai Panvel</li>
+                        <li><i class="fas fa-robot mr-2"></i>24/7 Gemini AI</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Ribosomes Diagnostics. Powered by Google Gemini AI.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chatbot -->
+    <div class="ai-chatbot">
+        <button class="chatbot-button pulse" onclick="toggleChatbot()">
+            <i class="fas fa-robot"></i>
+        </button>
+        
+        <div id="chatbotWindow" class="chatbot-window">
+            <div class="chatbot-header">
+                <div>
+                    <div class="font-bold text-xl">Gemini AI Assistant</div>
+                    <div class="text-sm opacity-90">Powered by Google Gemini 2.0 Flash</div>
+                </div>
+                <button onclick="toggleChatbot()" class="text-white hover:text-gray-200 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="chatMessages" class="chatbot-messages">
+                <div class="message bot">
+                    <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <div class="message-content">
+                            👋 Hello! I'm powered by Google Gemini 2.0 Flash. I can help you with:
+                            <ul class="mt-2 space-y-1 text-sm">
+                                <li>• Product information & specifications</li>
+                                <li>• Pricing & quotations</li>
+                                <li>• Technical support</li>
+                                <li>• General inquiries</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chatbot-input">
+                <input type="text" id="chatInput" placeholder="Ask Gemini AI anything..." onkeypress="if(event.key==='Enter') sendMessage()">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GEMINI_API_KEY = 'AIzaSyAicoE95NpR0LJsQh1uzheuk8tuMoc48_M';
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent';
+        
+        let conversationHistory = [];
+        
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            window.classList.toggle('active');
+        }
+        
+        function openChatbot() {
+            document.getElementById('chatbotWindow').classList.add('active');
+        }
+        
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            input.value = '';
+            
+            showTyping();
+            
+            try {
+                const response = await callGeminiAPI(message);
+                hideTyping();
+                addMessage(response, 'bot');
+            } catch (error) {
+                hideTyping();
+                addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                console.error('Gemini API Error:', error);
+            }
+        }
+        
+        async function callGeminiAPI(userMessage) {
+            conversationHistory.push({
+                role: 'user',
+                parts: [{ text: userMessage }]
+            });
+            
+            const systemPrompt = `You are an AI assistant for Ribosomes Diagnostics, a medical diagnostic equipment distributor in India. 
+            
+Products we offer:
+- Hematology Analyzers: Mispa Count X Plus (3-part), BC5140 (5-part), Mispa HX 88 (6-part)
+- Biochemistry Analyzers: Mispa Nano Plus (fully automated), Mispa CX4 (400 tests/hour), Mispa Viva (semi-automated)
+- CLIA Systems: MISPA i200, MISPA i180, MAGLUMI 800
+- ELISA Readers, Coagulation Analyzers (MISPA CLOG)
+
+Company Info:
+- Established: February 21, 2020
+- Location: Navi Mumbai Panvel-410206, Maharashtra, India
+- Phone: +91 773 889 5976
+- Partners: Agappe Diagnostics, Mindray, Nihon Kohden
+
+Provide helpful, accurate information about our products and services. Be professional and friendly.`;
+            
+            const requestBody = {
+                contents: [
+                    {
+                        role: 'user',
+                        parts: [{ text: systemPrompt }]
+                    },
+                    ...conversationHistory
+                ],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 1024,
+                }
+            };
+            
+            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody)
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API request failed: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const aiResponse = data.candidates[0].content.parts[0].text;
+            
+            conversationHistory.push({
+                role: 'model',
+                parts: [{ text: aiResponse }]
+            });
+            
+            return aiResponse;
+        }
+        
+        function askAI(question) {
+            document.getElementById('chatInput').value = question;
+            openChatbot();
+            setTimeout(() => sendMessage(), 300);
+        }
+        
+        function addMessage(text, type) {
+            const messages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.innerHTML = `
+                <div class="message-avatar">
+                    <i class="fas fa-${type === 'bot' ? 'robot' : 'user'}"></i>
+                </div>
+                <div class="message-content">${text}</div>
+            `;
+            messages.appendChild(messageDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function showTyping() {
+            const messages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing';
+            typingDiv.className = 'message bot';
+            typingDiv.innerHTML = `
+                <div class="message-avatar"><i class="fas fa-robot"></i></div>
+                <div class="message-content typing-indicator">
+                    <span></span><span></span><span></span>
+                </div>
+            `;
+            messages.appendChild(typingDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        function hideTyping() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+        
+        function handleContactForm(e) {
+            e.preventDefault();
+            alert('Thank you for your message! Our team will contact you shortly.');
+            e.target.reset();
+        }
+        
+        async function testGeminiAPI() {
+            openChatbot();
+            setTimeout(() => {
+                document.getElementById('chatInput').value = 'Hello! Can you tell me about your hematology analyzers?';
+                sendMessage();
+            }, 500);
+        }
+    </script>
+</body>
+</html>
