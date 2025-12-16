@@ -44,9 +44,14 @@
         .quick-prompt-btn { background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1976d2; border: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
         .quick-prompt-btn:hover { background: linear-gradient(135deg, #bbdefb, #90caf9); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(25,118,210,0.3); }
         
-        .input-row { display: flex; gap: 12px; }
-        .chatbot-input input { flex: 1; padding: 14px 20px; border: 2px solid #e0e0e0; border-radius: 28px; outline: none; }
-        .chatbot-input button { padding: 14px 20px; background: #0066CC; color: white; border: none; border-radius: 28px; cursor: pointer; }
+        .quick-prompt-btn.green { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); color: #2e7d32; }
+        .quick-prompt-btn.green:hover { background: linear-gradient(135deg, #c8e6c9, #a5d6a7); }
+        
+        .quick-prompt-btn.purple { background: linear-gradient(135deg, #f3e5f5, #e1bee7); color: #7b1fa2; }
+        .quick-prompt-btn.purple:hover { background: linear-gradient(135deg, #e1bee7, #ce93d8); }
+        
+        .quick-prompt-btn.orange { background: linear-gradient(135deg, #fff3e0, #ffe0b2); color: #e65100; }
+        .quick-prompt-btn.orange:hover { background: linear-gradient(135deg, #ffe0b2, #ffcc80); }
         
         .message { margin-bottom: 20px; display: flex; gap: 12px; animation: fadeIn 0.4s ease; }
         .message.bot { flex-direction: row; }
@@ -250,7 +255,7 @@
             <div class="chatbot-header flex justify-between items-center">
                 <div>
                     <div class="font-bold text-xl">AI Assistant</div>
-                    <div class="text-sm opacity-90">Click a button or type your question</div>
+                    <div class="text-sm opacity-90">Just click buttons - no typing needed!</div>
                 </div>
                 <button onclick="toggleChatbot()" class="text-white text-2xl">
                     <i class="fas fa-times"></i>
@@ -260,43 +265,14 @@
                 <div class="message bot">
                     <div class="message-avatar"><i class="fas fa-robot"></i></div>
                     <div class="message-content">
-                        👋 Hello! I can help you with our 17 products. Click a button below or type your question!
+                        👋 Hello! I can help you with our 17 products. Just click the buttons below - no typing needed!
                     </div>
                 </div>
             </div>
             <div class="chatbot-input">
                 <!-- Quick Prompt Buttons -->
-                <div class="quick-prompts">
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Show me all Hematology products')">
-                        <i class="fas fa-vial mr-1"></i>Hematology
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Show me Biochemistry analyzers')">
-                        <i class="fas fa-flask mr-1"></i>Biochemistry
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Tell me about CLIA systems')">
-                        <i class="fas fa-microscope mr-1"></i>CLIA
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('What is the price of BC5140?')">
-                        <i class="fas fa-tag mr-1"></i>Pricing
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Do you provide installation?')">
-                        <i class="fas fa-tools mr-1"></i>Installation
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('What is your warranty policy?')">
-                        <i class="fas fa-shield-alt mr-1"></i>Warranty
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('I need a demo')">
-                        <i class="fas fa-play-circle mr-1"></i>Request Demo
-                    </button>
-                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Contact sales team')">
-                        <i class="fas fa-phone mr-1"></i>Contact Sales
-                    </button>
-                </div>
-                
-                <!-- Input Row -->
-                <div class="input-row">
-                    <input type="text" id="chatInput" placeholder="Or type your question..." onkeypress="if(event.key==='Enter') sendMessage()">
-                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                <div id="quickPrompts" class="quick-prompts">
+                    <!-- Buttons will be dynamically inserted here -->
                 </div>
             </div>
         </div>
@@ -305,133 +281,198 @@
     <script>
         // COMPLETE PRODUCT DATABASE - ALL 17 PRODUCTS
         const products = {
-            // HEMATOLOGY (6 products)
-            'mispa-count-x-plus': {
-                name: 'Mispa Count X Plus', category: 'Hematology',
-                description: '3-Part Hematology Analyzer with 21 parameters, 60 samples/hour throughput, ideal for small to medium labs',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-count-x-plus.jpg',
-                features: ['21 reportable parameters', '60 samples/hour', '3-Part differential (WBC)', 'Compact design', 'User-friendly interface', '20 µL sample volume', 'Impedance + Colorimetry technology'],
-                specs: {'Type': '3-Part Hematology', 'Parameters': '21', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Impedance + Colorimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'bc5140': {
-                name: 'BC5140', category: 'Hematology',
-                description: '5-Part Hematology Analyzer with 25 parameters, Flow Cytometer technology, AI pattern recognition by Mindray',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5140-5-part-hematology-analyzer.jpg',
-                features: ['25 reportable parameters', 'Flow Cytometer technology', 'Tri-angle Laser Scatter', 'AI pattern recognition', '60 samples/hour', 'Manufactured by Mindray', 'Advanced flagging system'],
-                specs: {'Type': '5-Part Hematology', 'Parameters': '25', 'Throughput': '60 samples/hour', 'Technology': 'Flow Cytometry', 'Manufacturer': 'Mindray', 'Display': '10.4" Touch Screen', 'Sample Volume': '20 µL', 'Warranty': '2 Years'}
-            },
-            'mispa-hx-58': {
-                name: 'Mispa HX 58', category: 'Hematology',
-                description: '5-Part Hematology Analyzer with 24 parameters, advanced differential counting, suitable for medium labs',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-58.jpg',
-                features: ['24 reportable parameters', '5-Part differential', '60 samples/hour', 'Advanced flagging', 'Compact footprint', 'Easy maintenance', 'Cost-effective'],
-                specs: {'Type': '5-Part Hematology', 'Parameters': '24', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-hx-88': {
-                name: 'Mispa HX 88', category: 'Hematology',
-                description: '6-Part Hematology Analyzer with NRBC, RET, IPF - Advanced parameters for comprehensive blood analysis',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-88.jpg',
-                features: ['6-Part differential', 'NRBC counting', 'Reticulocyte (RET)', 'IPF analysis', '28 parameters', '80 samples/hour', 'Advanced research features'],
-                specs: {'Type': '6-Part Hematology', 'Parameters': '28', 'Throughput': '80 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Fluorescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'bc5390': {
-                name: 'BC5390', category: 'Hematology',
-                description: '5-Part Auto Hematology Analyzer by Mindray with high throughput and advanced features',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5390.jpg',
-                features: ['5-Part differential', 'Auto sampler', '90 samples/hour', 'Advanced flagging', 'LIS connectivity', 'Mindray quality', 'Low reagent consumption'],
-                specs: {'Type': '5-Part Auto Hematology', 'Parameters': '26', 'Throughput': '90 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'}
-            },
-            'bc5180': {
-                name: 'BC5180', category: 'Hematology',
-                description: '5-Part Hematology Analyzer with CRP - Combined CBC and inflammation marker testing',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5180.jpg',
-                features: ['5-Part differential', 'CRP testing', '60 samples/hour', 'Dual testing capability', 'Cost-effective', 'Mindray technology', 'Compact design'],
-                specs: {'Type': '5-Part + CRP', 'Parameters': '25 + CRP', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Immunoturbidimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'}
-            },
-
-            // BIOCHEMISTRY (5 products)
-            'mispa-nano-plus': {
-                name: 'Mispa Nano Plus', category: 'Biochemistry',
-                description: 'Fully automated biochemistry analyzer with random access, 200 tests/hour, ideal for medium to large labs',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-nano-plus.jpg',
-                features: ['Fully automated', 'Random access', '200 tests/hour', 'AI quality control', '60 reagent positions', '100 sample positions', 'Discrete analysis'],
-                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '200 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '60', 'Sample Positions': '100', 'Technology': 'Photometric', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-cx4': {
-                name: 'Mispa CX4', category: 'Biochemistry',
-                description: 'High-throughput biochemistry analyzer - 400 tests/hour with advanced automation',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cx4.jpg',
-                features: ['400 tests/hour', 'Fully automated', 'ISE module', 'Random access', 'Low sample volume', 'Advanced QC', 'LIS integration'],
-                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '400 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '80', 'Sample Positions': '120', 'Technology': 'Photometric + ISE', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-cxl-pro-plus': {
-                name: 'Mispa CXL Pro Plus', category: 'Biochemistry',
-                description: 'Premium fully automated biochemistry analyzer with extended features and high capacity',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cxl-pro-plus.jpg',
-                features: ['Fully automated', '300 tests/hour', 'Extended reagent capacity', 'ISE module', 'Advanced software', 'Barcode reader', 'Auto dilution'],
-                specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '300 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '70', 'Sample Positions': '110', 'Technology': 'Photometric + ISE', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-plus': {
-                name: 'Mispa Plus', category: 'Biochemistry',
-                description: 'Semi-automated biochemistry analyzer - Cost-effective solution for small labs',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-plus.jpg',
-                features: ['Semi-automated', '100 tests/hour', 'Compact design', 'Easy operation', 'Low maintenance', 'Affordable', 'Reliable results'],
-                specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '100 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '12', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-viva': {
-                name: 'Mispa Viva', category: 'Biochemistry',
-                description: 'Semi-automated biochemistry analyzer with enhanced features for growing labs',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-viva.jpg',
-                features: ['Semi-automated', '120 tests/hour', 'User-friendly', 'Compact footprint', 'Low reagent consumption', 'Easy maintenance', 'Cost-effective'],
-                specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '120 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '16', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-
-            // CLIA (3 products)
-            'mispa-i200': {
-                name: 'MISPA i200', category: 'CLIA',
-                description: 'Chemiluminescence Immunoassay System with direct chemiluminescence technology',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i200.jpg',
-                features: ['Direct chemiluminescence', '200 tests/hour', 'Wide test menu', 'Random access', 'AI result validation', 'Compact design', 'Low maintenance'],
-                specs: {'Type': 'CLIA System', 'Throughput': '200 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '25', 'Sample Positions': '50', 'Technology': 'Direct Chemiluminescence', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'mispa-i180': {
-                name: 'MISPA i180', category: 'CLIA',
-                description: 'CLIA System with Acridinium Ester technology for high sensitivity testing',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i180.jpg',
-                features: ['Acridinium Ester technology', '180 tests/hour', 'High sensitivity', 'Wide test menu', 'Random access', 'Compact design', 'Easy operation'],
-                specs: {'Type': 'CLIA System', 'Throughput': '180 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '20', 'Sample Positions': '45', 'Technology': 'Acridinium Ester', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'maglumi-800': {
-                name: 'MAGLUMI 800', category: 'CLIA',
-                description: 'High-capacity CLIA system with magnetic particle separation technology',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/maglumi-800.jpg',
-                features: ['Magnetic particle separation', '240 tests/hour', 'High capacity', 'Wide test menu', 'Random access', 'Advanced automation', 'LIS connectivity'],
-                specs: {'Type': 'CLIA System', 'Throughput': '240 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '30', 'Sample Positions': '60', 'Technology': 'Magnetic Particle + Chemiluminescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Snibe', 'Warranty': '1 Year'}
-            },
-
-            // OTHERS (3 products)
-            'elisa-reader': {
-                name: 'ELISA Reader', category: 'Other',
-                description: 'Microplate reader for ELISA testing with high precision and reliability',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/elisa-reader.jpg',
-                features: ['Microplate reading', 'High precision', 'Multiple wavelengths', 'Compact design', 'Easy operation', 'Affordable', 'Reliable results'],
-                specs: {'Type': 'ELISA Reader', 'Wavelength Range': '400-750 nm', 'Plate Format': '96-well', 'Reading Time': '< 10 seconds', 'Technology': 'Photometric', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'coagulation-analyzer': {
-                name: 'Coagulation Analyzer', category: 'Other',
-                description: 'Automated coagulation analyzer for PT, APTT, Fibrinogen, and other tests',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/coagulation-analyzer.jpg',
-                features: ['Automated testing', 'PT, APTT, Fibrinogen', 'Compact design', 'Easy operation', 'Quick results', 'Low sample volume', 'Cost-effective'],
-                specs: {'Type': 'Coagulation Analyzer', 'Tests': 'PT, APTT, Fibrinogen, TT', 'Throughput': '60 tests/hour', 'Sample Volume': '50 µL', 'Technology': 'Optical Detection', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            },
-            'electrolyte-analyzer': {
-                name: 'Electrolyte Analyzer', category: 'Other',
-                description: 'ISE-based electrolyte analyzer for Na, K, Cl, and other ions',
-                image: 'https://www.ribosomesdiagnostics.com/assets/product/electrolyte-analyzer.jpg',
-                features: ['ISE technology', 'Na, K, Cl testing', 'Quick results', 'Low sample volume', 'Compact design', 'Easy maintenance', 'Affordable'],
-                specs: {'Type': 'Electrolyte Analyzer', 'Parameters': 'Na, K, Cl, Ca, Li', 'Throughput': '60 samples/hour', 'Sample Volume': '100 µL', 'Technology': 'Ion Selective Electrode', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'}
-            }
+            'mispa-count-x-plus': { name: 'Mispa Count X Plus', category: 'Hematology', description: '3-Part Hematology Analyzer with 21 parameters, 60 samples/hour throughput, ideal for small to medium labs', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-count-x-plus.jpg', features: ['21 reportable parameters', '60 samples/hour', '3-Part differential (WBC)', 'Compact design', 'User-friendly interface', '20 µL sample volume', 'Impedance + Colorimetry technology'], specs: {'Type': '3-Part Hematology', 'Parameters': '21', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Impedance + Colorimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'bc5140': { name: 'BC5140', category: 'Hematology', description: '5-Part Hematology Analyzer with 25 parameters, Flow Cytometer technology, AI pattern recognition by Mindray', image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5140-5-part-hematology-analyzer.jpg', features: ['25 reportable parameters', 'Flow Cytometer technology', 'Tri-angle Laser Scatter', 'AI pattern recognition', '60 samples/hour', 'Manufactured by Mindray', 'Advanced flagging system'], specs: {'Type': '5-Part Hematology', 'Parameters': '25', 'Throughput': '60 samples/hour', 'Technology': 'Flow Cytometry', 'Manufacturer': 'Mindray', 'Display': '10.4" Touch Screen', 'Sample Volume': '20 µL', 'Warranty': '2 Years'} },
+            'mispa-hx-58': { name: 'Mispa HX 58', category: 'Hematology', description: '5-Part Hematology Analyzer with 24 parameters, advanced differential counting, suitable for medium labs', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-58.jpg', features: ['24 reportable parameters', '5-Part differential', '60 samples/hour', 'Advanced flagging', 'Compact footprint', 'Easy maintenance', 'Cost-effective'], specs: {'Type': '5-Part Hematology', 'Parameters': '24', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-hx-88': { name: 'Mispa HX 88', category: 'Hematology', description: '6-Part Hematology Analyzer with NRBC, RET, IPF - Advanced parameters for comprehensive blood analysis', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-hx-88.jpg', features: ['6-Part differential', 'NRBC counting', 'Reticulocyte (RET)', 'IPF analysis', '28 parameters', '80 samples/hour', 'Advanced research features'], specs: {'Type': '6-Part Hematology', 'Parameters': '28', 'Throughput': '80 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Fluorescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'bc5390': { name: 'BC5390', category: 'Hematology', description: '5-Part Auto Hematology Analyzer by Mindray with high throughput and advanced features', image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5390.jpg', features: ['5-Part differential', 'Auto sampler', '90 samples/hour', 'Advanced flagging', 'LIS connectivity', 'Mindray quality', 'Low reagent consumption'], specs: {'Type': '5-Part Auto Hematology', 'Parameters': '26', 'Throughput': '90 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'} },
+            'bc5180': { name: 'BC5180', category: 'Hematology', description: '5-Part Hematology Analyzer with CRP - Combined CBC and inflammation marker testing', image: 'https://www.ribosomesdiagnostics.com/assets/product/bc5180.jpg', features: ['5-Part differential', 'CRP testing', '60 samples/hour', 'Dual testing capability', 'Cost-effective', 'Mindray technology', 'Compact design'], specs: {'Type': '5-Part + CRP', 'Parameters': '25 + CRP', 'Throughput': '60 samples/hour', 'Sample Volume': '20 µL', 'Technology': 'Flow Cytometry + Immunoturbidimetry', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Mindray', 'Warranty': '2 Years'} },
+            'mispa-nano-plus': { name: 'Mispa Nano Plus', category: 'Biochemistry', description: 'Fully automated biochemistry analyzer with random access, 200 tests/hour, ideal for medium to large labs', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-nano-plus.jpg', features: ['Fully automated', 'Random access', '200 tests/hour', 'AI quality control', '60 reagent positions', '100 sample positions', 'Discrete analysis'], specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '200 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '60', 'Sample Positions': '100', 'Technology': 'Photometric', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-cx4': { name: 'Mispa CX4', category: 'Biochemistry', description: 'High-throughput biochemistry analyzer - 400 tests/hour with advanced automation', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cx4.jpg', features: ['400 tests/hour', 'Fully automated', 'ISE module', 'Random access', 'Low sample volume', 'Advanced QC', 'LIS integration'], specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '400 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '80', 'Sample Positions': '120', 'Technology': 'Photometric + ISE', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-cxl-pro-plus': { name: 'Mispa CXL Pro Plus', category: 'Biochemistry', description: 'Premium fully automated biochemistry analyzer with extended features and high capacity', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-cxl-pro-plus.jpg', features: ['Fully automated', '300 tests/hour', 'Extended reagent capacity', 'ISE module', 'Advanced software', 'Barcode reader', 'Auto dilution'], specs: {'Type': 'Fully Automated Biochemistry', 'Throughput': '300 tests/hour', 'Sample Volume': '2-35 µL', 'Reagent Positions': '70', 'Sample Positions': '110', 'Technology': 'Photometric + ISE', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-plus': { name: 'Mispa Plus', category: 'Biochemistry', description: 'Semi-automated biochemistry analyzer - Cost-effective solution for small labs', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-plus.jpg', features: ['Semi-automated', '100 tests/hour', 'Compact design', 'Easy operation', 'Low maintenance', 'Affordable', 'Reliable results'], specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '100 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '12', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-viva': { name: 'Mispa Viva', category: 'Biochemistry', description: 'Semi-automated biochemistry analyzer with enhanced features for growing labs', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-viva.jpg', features: ['Semi-automated', '120 tests/hour', 'User-friendly', 'Compact footprint', 'Low reagent consumption', 'Easy maintenance', 'Cost-effective'], specs: {'Type': 'Semi-Automated Biochemistry', 'Throughput': '120 tests/hour', 'Sample Volume': '5-50 µL', 'Cuvette Positions': '16', 'Technology': 'Photometric', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-i200': { name: 'MISPA i200', category: 'CLIA', description: 'Chemiluminescence Immunoassay System with direct chemiluminescence technology', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i200.jpg', features: ['Direct chemiluminescence', '200 tests/hour', 'Wide test menu', 'Random access', 'AI result validation', 'Compact design', 'Low maintenance'], specs: {'Type': 'CLIA System', 'Throughput': '200 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '25', 'Sample Positions': '50', 'Technology': 'Direct Chemiluminescence', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'mispa-i180': { name: 'MISPA i180', category: 'CLIA', description: 'CLIA System with Acridinium Ester technology for high sensitivity testing', image: 'https://www.ribosomesdiagnostics.com/assets/product/mispa-i180.jpg', features: ['Acridinium Ester technology', '180 tests/hour', 'High sensitivity', 'Wide test menu', 'Random access', 'Compact design', 'Easy operation'], specs: {'Type': 'CLIA System', 'Throughput': '180 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '20', 'Sample Positions': '45', 'Technology': 'Acridinium Ester', 'Display': '10.4" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'maglumi-800': { name: 'MAGLUMI 800', category: 'CLIA', description: 'High-capacity CLIA system with magnetic particle separation technology', image: 'https://www.ribosomesdiagnostics.com/assets/product/maglumi-800.jpg', features: ['Magnetic particle separation', '240 tests/hour', 'High capacity', 'Wide test menu', 'Random access', 'Advanced automation', 'LIS connectivity'], specs: {'Type': 'CLIA System', 'Throughput': '240 tests/hour', 'Sample Volume': '10-100 µL', 'Reagent Positions': '30', 'Sample Positions': '60', 'Technology': 'Magnetic Particle + Chemiluminescence', 'Display': '12.1" Touch Screen', 'Manufacturer': 'Snibe', 'Warranty': '1 Year'} },
+            'elisa-reader': { name: 'ELISA Reader', category: 'Other', description: 'Microplate reader for ELISA testing with high precision and reliability', image: 'https://www.ribosomesdiagnostics.com/assets/product/elisa-reader.jpg', features: ['Microplate reading', 'High precision', 'Multiple wavelengths', 'Compact design', 'Easy operation', 'Affordable', 'Reliable results'], specs: {'Type': 'ELISA Reader', 'Wavelength Range': '400-750 nm', 'Plate Format': '96-well', 'Reading Time': '< 10 seconds', 'Technology': 'Photometric', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'coagulation-analyzer': { name: 'Coagulation Analyzer', category: 'Other', description: 'Automated coagulation analyzer for PT, APTT, Fibrinogen, and other tests', image: 'https://www.ribosomesdiagnostics.com/assets/product/coagulation-analyzer.jpg', features: ['Automated testing', 'PT, APTT, Fibrinogen', 'Compact design', 'Easy operation', 'Quick results', 'Low sample volume', 'Cost-effective'], specs: {'Type': 'Coagulation Analyzer', 'Tests': 'PT, APTT, Fibrinogen, TT', 'Throughput': '60 tests/hour', 'Sample Volume': '50 µL', 'Technology': 'Optical Detection', 'Display': '7" Touch Screen', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} },
+            'electrolyte-analyzer': { name: 'Electrolyte Analyzer', category: 'Other', description: 'ISE-based electrolyte analyzer for Na, K, Cl, and other ions', image: 'https://www.ribosomesdiagnostics.com/assets/product/electrolyte-analyzer.jpg', features: ['ISE technology', 'Na, K, Cl testing', 'Quick results', 'Low sample volume', 'Compact design', 'Easy maintenance', 'Affordable'], specs: {'Type': 'Electrolyte Analyzer', 'Parameters': 'Na, K, Cl, Ca, Li', 'Throughput': '60 samples/hour', 'Sample Volume': '100 µL', 'Technology': 'Ion Selective Electrode', 'Display': 'LCD', 'Manufacturer': 'Agappe', 'Warranty': '1 Year'} }
         };
+
+        // MULTI-LEVEL BUTTON SYSTEM
+        const buttonFlows = {
+            initial: [
+                { text: '🧪 Hematology', icon: 'vial', action: 'hematology' },
+                { text: '🧫 Biochemistry', icon: 'flask', action: 'biochemistry' },
+                { text: '🔬 CLIA', icon: 'microscope', action: 'clia' },
+                { text: '💰 Pricing', icon: 'tag', action: 'pricing' },
+                { text: '🔧 Services', icon: 'tools', action: 'services' },
+                { text: '📞 Contact', icon: 'phone', action: 'contact' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            hematology: [
+                { text: 'Mispa Count X Plus', action: 'product_mispa-count-x-plus' },
+                { text: 'BC5140', action: 'product_bc5140' },
+                { text: 'Mispa HX 58', action: 'product_mispa-hx-58' },
+                { text: 'Mispa HX 88', action: 'product_mispa-hx-88' },
+                { text: 'BC5390', action: 'product_bc5390' },
+                { text: 'BC5180', action: 'product_bc5180' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            biochemistry: [
+                { text: 'Mispa Nano Plus', action: 'product_mispa-nano-plus' },
+                { text: 'Mispa CX4', action: 'product_mispa-cx4' },
+                { text: 'Mispa CXL Pro Plus', action: 'product_mispa-cxl-pro-plus' },
+                { text: 'Mispa Plus', action: 'product_mispa-plus' },
+                { text: 'Mispa Viva', action: 'product_mispa-viva' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            clia: [
+                { text: 'MISPA i200', action: 'product_mispa-i200' },
+                { text: 'MISPA i180', action: 'product_mispa-i180' },
+                { text: 'MAGLUMI 800', action: 'product_maglumi-800' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            pricing: [
+                { text: 'Get Quote', action: 'get_quote' },
+                { text: 'Compare Products', action: 'compare' },
+                { text: 'Financing Options', action: 'financing' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            services: [
+                { text: 'Installation', action: 'installation' },
+                { text: 'Training', action: 'training' },
+                { text: 'Warranty', action: 'warranty' },
+                { text: 'AMC Plans', action: 'amc' },
+                { text: 'Request Demo', action: 'demo' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ],
+            contact: [
+                { text: '📞 Call Now', action: 'call' },
+                { text: '💬 WhatsApp', action: 'whatsapp' },
+                { text: '📧 Email', action: 'email' },
+                { text: '🏠 Main Menu', icon: 'home', action: 'initial', class: 'green' }
+            ]
+        };
+
+        function showButtons(flow) {
+            const container = document.getElementById('quickPrompts');
+            container.innerHTML = '';
+            
+            const buttons = buttonFlows[flow] || buttonFlows.initial;
+            buttons.forEach(btn => {
+                const button = document.createElement('button');
+                button.className = `quick-prompt-btn ${btn.class || ''}`;
+                button.innerHTML = btn.icon ? `<i class="fas fa-${btn.icon} mr-1"></i>${btn.text}` : btn.text;
+                button.onclick = () => handleButtonClick(btn.action, btn.text);
+                container.appendChild(button);
+            });
+        }
+
+        function handleButtonClick(action, text) {
+            addMessage(text, 'user');
+            
+            if (action === 'initial') {
+                showButtons('initial');
+                addMessage('👋 Back to main menu! What would you like to know?', 'bot');
+            } else if (action === 'hematology') {
+                showButtons('hematology');
+                addMessage('Here are our 6 Hematology products. Click any product to see details:', 'bot');
+            } else if (action === 'biochemistry') {
+                showButtons('biochemistry');
+                addMessage('Here are our 5 Biochemistry analyzers. Click any product to see details:', 'bot');
+            } else if (action === 'clia') {
+                showButtons('clia');
+                addMessage('Here are our 3 CLIA systems. Click any product to see details:', 'bot');
+            } else if (action === 'pricing') {
+                showButtons('pricing');
+                addMessage('How can I help you with pricing?', 'bot');
+            } else if (action === 'services') {
+                showButtons('services');
+                addMessage('What service information do you need?', 'bot');
+            } else if (action === 'contact') {
+                showButtons('contact');
+                addMessage('How would you like to contact us?', 'bot');
+            } else if (action.startsWith('product_')) {
+                const productId = action.replace('product_', '');
+                const product = products[productId];
+                if (product) {
+                    const response = `<strong>${product.name}</strong><br>${product.description}<br><br><strong>Key Features:</strong><br>• ${product.features.slice(0, 3).join('<br>• ')}<br><br>What would you like to know?`;
+                    addMessage(response, 'bot');
+                    showButtons('product_detail_' + productId);
+                    
+                    // Add product detail buttons
+                    setTimeout(() => {
+                        const container = document.getElementById('quickPrompts');
+                        container.innerHTML = '';
+                        [
+                            { text: 'Full Specifications', action: 'specs_' + productId },
+                            { text: 'Request Quote', action: 'quote_' + productId, class: 'green' },
+                            { text: 'Request Demo', action: 'demo_' + productId, class: 'purple' },
+                            { text: 'Compare Products', action: 'compare' },
+                            { text: '🏠 Main Menu', action: 'initial', class: 'orange' }
+                        ].forEach(btn => {
+                            const button = document.createElement('button');
+                            button.className = `quick-prompt-btn ${btn.class || ''}`;
+                            button.textContent = btn.text;
+                            button.onclick = () => handleButtonClick(btn.action, btn.text);
+                            container.appendChild(button);
+                        });
+                    }, 100);
+                }
+            } else if (action.startsWith('specs_')) {
+                const productId = action.replace('specs_', '');
+                const product = products[productId];
+                if (product) {
+                    let specs = '<strong>Technical Specifications:</strong><br>';
+                    Object.entries(product.specs).forEach(([key, val]) => {
+                        specs += `• ${key}: ${val}<br>`;
+                    });
+                    addMessage(specs, 'bot');
+                    showButtons('initial');
+                }
+            } else if (action.startsWith('quote_')) {
+                addMessage('Quote request sent! Our team will contact you at +91 773 889 5976 within 24 hours.', 'bot');
+                showButtons('initial');
+            } else if (action.startsWith('demo_')) {
+                addMessage('Demo request received! We will schedule a demonstration at your convenience. Call +91 773 889 5976 to confirm timing.', 'bot');
+                showButtons('initial');
+            } else if (action === 'get_quote') {
+                addMessage('For detailed pricing, please call +91 773 889 5976 or fill our contact form. We offer competitive prices and customized packages!', 'bot');
+                showButtons('initial');
+            } else if (action === 'compare') {
+                addMessage('To compare products, please call +91 773 889 5976 or visit our showroom. Our experts will help you choose the best option!', 'bot');
+                showButtons('initial');
+            } else if (action === 'financing') {
+                addMessage('We offer flexible financing options including EMI, leasing, and rental plans. Call +91 773 889 5976 for details!', 'bot');
+                showButtons('initial');
+            } else if (action === 'installation') {
+                addMessage('✓ Professional installation by certified technicians<br>✓ Site assessment<br>✓ Equipment setup & calibration<br>✓ Quality checks<br><br>All included with purchase!', 'bot');
+                showButtons('initial');
+            } else if (action === 'training') {
+                addMessage('✓ Hands-on training for your staff<br>✓ Operation manuals<br>✓ Video tutorials<br>✓ Certification<br><br>Comprehensive training included!', 'bot');
+                showButtons('initial');
+            } else if (action === 'warranty') {
+                addMessage('Warranty varies by product:<br>• Agappe: 1 year<br>• Mindray: 2 years<br>• Extended warranty available<br>• AMC plans available', 'bot');
+                showButtons('initial');
+            } else if (action === 'amc') {
+                addMessage('Annual Maintenance Contracts available with:<br>✓ Preventive maintenance<br>✓ Emergency repairs<br>✓ Spare parts<br>✓ 24/7 support<br><br>Call +91 773 889 5976 for pricing!', 'bot');
+                showButtons('initial');
+            } else if (action === 'demo') {
+                addMessage('We offer FREE product demonstrations at our facility or on-site. Call +91 773 889 5976 to schedule!', 'bot');
+                showButtons('initial');
+            } else if (action === 'call') {
+                addMessage('📞 Call us now: +91 773 889 5976<br>Hours: Mon-Sat, 9 AM - 6 PM', 'bot');
+                showButtons('initial');
+            } else if (action === 'whatsapp') {
+                addMessage('💬 Click the green WhatsApp button at bottom right to chat directly!', 'bot');
+                showButtons('initial');
+            } else if (action === 'email') {
+                addMessage('📧 Email: info@ribosomesdiagnostics.com<br>We respond within 24 hours!', 'bot');
+                showButtons('initial');
+            }
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
@@ -497,52 +538,14 @@
         }
 
         function toggleChatbot() {
-            document.getElementById('chatbotWindow').classList.toggle('active');
+            const window = document.getElementById('chatbotWindow');
+            const isActive = window.classList.toggle('active');
+            if (isActive) showButtons('initial');
         }
 
         function openChatbot() {
             document.getElementById('chatbotWindow').classList.add('active');
-        }
-
-        function sendQuickPrompt(prompt) {
-            addMessage(prompt, 'user');
-            setTimeout(() => {
-                let response = '';
-                if (prompt.includes('Hematology')) {
-                    response = 'We have 6 Hematology products:<br>1. Mispa Count X Plus (3-Part)<br>2. BC5140 (5-Part)<br>3. Mispa HX 58 (5-Part)<br>4. Mispa HX 88 (6-Part)<br>5. BC5390 (Auto)<br>6. BC5180 (with CRP)<br><br>Which one interests you?';
-                } else if (prompt.includes('Biochemistry')) {
-                    response = 'Our Biochemistry range:<br>1. Mispa Nano Plus (200 tests/hr)<br>2. Mispa CX4 (400 tests/hr)<br>3. Mispa CXL Pro Plus (300 tests/hr)<br>4. Mispa Plus (Semi-auto)<br>5. Mispa Viva (Semi-auto)<br><br>Need detailed specs?';
-                } else if (prompt.includes('CLIA')) {
-                    response = 'CLIA Systems available:<br>1. MISPA i200 (200 tests/hr)<br>2. MISPA i180 (180 tests/hr)<br>3. MAGLUMI 800 (240 tests/hr)<br><br>All with advanced automation!';
-                } else if (prompt.includes('price')) {
-                    response = 'For pricing details, please call us at +91 773 889 5976 or fill the contact form. We offer competitive prices and customized packages!';
-                } else if (prompt.includes('installation')) {
-                    response = 'Yes! We provide:<br>✓ Professional installation<br>✓ Comprehensive training<br>✓ Operation manuals<br>✓ Video tutorials<br>✓ Certification<br><br>All included with purchase!';
-                } else if (prompt.includes('warranty')) {
-                    response = 'Warranty varies by product:<br>• Agappe products: 1 year<br>• Mindray products: 2 years<br>• Extended warranty available<br>• AMC plans available<br><br>Want details for a specific product?';
-                } else if (prompt.includes('demo')) {
-                    response = 'We offer FREE product demonstrations!<br>• At our facility<br>• On-site at your location<br><br>Call +91 773 889 5976 to schedule!';
-                } else if (prompt.includes('Contact')) {
-                    response = '📞 Contact our sales team:<br>Phone: +91 773 889 5976<br>Address: Navi Mumbai Panvel-410206<br>Hours: Mon-Sat, 9 AM - 6 PM<br><br>Or fill our contact form!';
-                } else {
-                    response = 'Thank you! For detailed information, call +91 773 889 5976 or fill our contact form.';
-                }
-                addMessage(response, 'bot');
-            }, 1000);
-        }
-
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            addMessage(message, 'user');
-            input.value = '';
-
-            setTimeout(() => {
-                const response = 'Thank you! We have 17 products across Hematology, Biochemistry, CLIA, and more. Call +91 773 889 5976 for details!';
-                addMessage(response, 'bot');
-            }, 1000);
+            showButtons('initial');
         }
 
         function addMessage(text, type) {
@@ -559,6 +562,7 @@
 
         // Initialize
         renderProducts();
+        showButtons('initial');
     </script>
 </body>
 </html>
