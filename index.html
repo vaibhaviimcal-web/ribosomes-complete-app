@@ -38,14 +38,20 @@
         
         .chatbot-header { background: linear-gradient(135deg, #0066CC, #004C99); color: white; padding: 24px; }
         .chatbot-messages { flex: 1; overflow-y: auto; padding: 24px; background: linear-gradient(to bottom, #f8f9fa, #ffffff); }
-        .chatbot-input { padding: 20px; border-top: 1px solid #e0e0e0; display: flex; gap: 12px; }
+        .chatbot-input { padding: 20px; border-top: 1px solid #e0e0e0; }
+        
+        .quick-prompts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+        .quick-prompt-btn { background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1976d2; border: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+        .quick-prompt-btn:hover { background: linear-gradient(135deg, #bbdefb, #90caf9); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(25,118,210,0.3); }
+        
+        .input-row { display: flex; gap: 12px; }
         .chatbot-input input { flex: 1; padding: 14px 20px; border: 2px solid #e0e0e0; border-radius: 28px; outline: none; }
         .chatbot-input button { padding: 14px 20px; background: #0066CC; color: white; border: none; border-radius: 28px; cursor: pointer; }
         
         .message { margin-bottom: 20px; display: flex; gap: 12px; animation: fadeIn 0.4s ease; }
         .message.bot { flex-direction: row; }
         .message.user { flex-direction: row-reverse; }
-        .message-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-center; font-size: 20px; flex-shrink: 0; }
+        .message-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
         .message.bot .message-avatar { background: linear-gradient(135deg, #0066CC, #00A86B); color: white; }
         .message.user .message-avatar { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
         .message-content { max-width: 75%; padding: 14px 18px; border-radius: 18px; font-size: 15px; line-height: 1.6; }
@@ -244,7 +250,7 @@
             <div class="chatbot-header flex justify-between items-center">
                 <div>
                     <div class="font-bold text-xl">AI Assistant</div>
-                    <div class="text-sm opacity-90">17+ Products Available</div>
+                    <div class="text-sm opacity-90">Click a button or type your question</div>
                 </div>
                 <button onclick="toggleChatbot()" class="text-white text-2xl">
                     <i class="fas fa-times"></i>
@@ -254,13 +260,44 @@
                 <div class="message bot">
                     <div class="message-avatar"><i class="fas fa-robot"></i></div>
                     <div class="message-content">
-                        👋 Hello! I can help you with our 17 products. Ask me about Hematology, Biochemistry, CLIA, or other equipment!
+                        👋 Hello! I can help you with our 17 products. Click a button below or type your question!
                     </div>
                 </div>
             </div>
             <div class="chatbot-input">
-                <input type="text" id="chatInput" placeholder="Ask about products..." onkeypress="if(event.key==='Enter') sendMessage()">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                <!-- Quick Prompt Buttons -->
+                <div class="quick-prompts">
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Show me all Hematology products')">
+                        <i class="fas fa-vial mr-1"></i>Hematology
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Show me Biochemistry analyzers')">
+                        <i class="fas fa-flask mr-1"></i>Biochemistry
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Tell me about CLIA systems')">
+                        <i class="fas fa-microscope mr-1"></i>CLIA
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('What is the price of BC5140?')">
+                        <i class="fas fa-tag mr-1"></i>Pricing
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Do you provide installation?')">
+                        <i class="fas fa-tools mr-1"></i>Installation
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('What is your warranty policy?')">
+                        <i class="fas fa-shield-alt mr-1"></i>Warranty
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('I need a demo')">
+                        <i class="fas fa-play-circle mr-1"></i>Request Demo
+                    </button>
+                    <button class="quick-prompt-btn" onclick="sendQuickPrompt('Contact sales team')">
+                        <i class="fas fa-phone mr-1"></i>Contact Sales
+                    </button>
+                </div>
+                
+                <!-- Input Row -->
+                <div class="input-row">
+                    <input type="text" id="chatInput" placeholder="Or type your question..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
             </div>
         </div>
     </div>
@@ -465,6 +502,33 @@
 
         function openChatbot() {
             document.getElementById('chatbotWindow').classList.add('active');
+        }
+
+        function sendQuickPrompt(prompt) {
+            addMessage(prompt, 'user');
+            setTimeout(() => {
+                let response = '';
+                if (prompt.includes('Hematology')) {
+                    response = 'We have 6 Hematology products:<br>1. Mispa Count X Plus (3-Part)<br>2. BC5140 (5-Part)<br>3. Mispa HX 58 (5-Part)<br>4. Mispa HX 88 (6-Part)<br>5. BC5390 (Auto)<br>6. BC5180 (with CRP)<br><br>Which one interests you?';
+                } else if (prompt.includes('Biochemistry')) {
+                    response = 'Our Biochemistry range:<br>1. Mispa Nano Plus (200 tests/hr)<br>2. Mispa CX4 (400 tests/hr)<br>3. Mispa CXL Pro Plus (300 tests/hr)<br>4. Mispa Plus (Semi-auto)<br>5. Mispa Viva (Semi-auto)<br><br>Need detailed specs?';
+                } else if (prompt.includes('CLIA')) {
+                    response = 'CLIA Systems available:<br>1. MISPA i200 (200 tests/hr)<br>2. MISPA i180 (180 tests/hr)<br>3. MAGLUMI 800 (240 tests/hr)<br><br>All with advanced automation!';
+                } else if (prompt.includes('price')) {
+                    response = 'For pricing details, please call us at +91 773 889 5976 or fill the contact form. We offer competitive prices and customized packages!';
+                } else if (prompt.includes('installation')) {
+                    response = 'Yes! We provide:<br>✓ Professional installation<br>✓ Comprehensive training<br>✓ Operation manuals<br>✓ Video tutorials<br>✓ Certification<br><br>All included with purchase!';
+                } else if (prompt.includes('warranty')) {
+                    response = 'Warranty varies by product:<br>• Agappe products: 1 year<br>• Mindray products: 2 years<br>• Extended warranty available<br>• AMC plans available<br><br>Want details for a specific product?';
+                } else if (prompt.includes('demo')) {
+                    response = 'We offer FREE product demonstrations!<br>• At our facility<br>• On-site at your location<br><br>Call +91 773 889 5976 to schedule!';
+                } else if (prompt.includes('Contact')) {
+                    response = '📞 Contact our sales team:<br>Phone: +91 773 889 5976<br>Address: Navi Mumbai Panvel-410206<br>Hours: Mon-Sat, 9 AM - 6 PM<br><br>Or fill our contact form!';
+                } else {
+                    response = 'Thank you! For detailed information, call +91 773 889 5976 or fill our contact form.';
+                }
+                addMessage(response, 'bot');
+            }, 1000);
         }
 
         function sendMessage() {
