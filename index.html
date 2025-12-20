@@ -49,7 +49,7 @@
         
         .chatbot-header { background: linear-gradient(135deg, #0066CC, #004C99); color: white; padding: 20px; }
         .chatbot-messages { flex: 1; overflow-y: auto; padding: 20px; background: linear-gradient(to bottom, #f8f9fa, #ffffff); }
-        .chatbot-input { padding: 16px; border-top: 1px solid #e0e0e0; }
+        .chatbot-input { padding: 16px; border-top: 1px solid #e0e0e0; background: white; }
         
         .quick-prompts { display: flex; flex-wrap: wrap; gap: 8px; }
         .quick-prompt-btn { background: linear-gradient(135deg, #e3f2fd, #bbdefb); color: #1976d2; border: none; padding: 10px 16px; border-radius: 20px; font-size: 13px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
@@ -497,8 +497,8 @@
         }
 
         function toggleChatbot() {
-            const window = document.getElementById('chatbotWindow');
-            const isActive = window.classList.toggle('active');
+            const chatWindow = document.getElementById('chatbotWindow');
+            const isActive = chatWindow.classList.toggle('active');
             if (isActive && !chatInitialized) {
                 initializeChatbot();
                 chatInitialized = true;
@@ -506,34 +506,41 @@
         }
 
         function openChatbot() {
-            document.getElementById('chatbotWindow').classList.add('active');
-            if (!chatInitialized) {
-                initializeChatbot();
-                chatInitialized = true;
+            const chatWindow = document.getElementById('chatbotWindow');
+            if (!chatWindow.classList.contains('active')) {
+                chatWindow.classList.add('active');
+                if (!chatInitialized) {
+                    initializeChatbot();
+                    chatInitialized = true;
+                }
             }
         }
 
         function initializeChatbot() {
             const messages = document.getElementById('chatMessages');
-            messages.innerHTML = `
-                <div class="message bot">
-                    <div class="message-avatar"><i class="fas fa-robot"></i></div>
-                    <div class="message-content">👋 Hello! I can help you with our 17 products. Just click the buttons below!</div>
-                </div>
-            `;
+            messages.innerHTML = '';
+            addMessage('👋 Hello! I can help you with our 17 products. Just click the buttons below!', 'bot');
             showButtons();
         }
 
         function showButtons() {
             const container = document.getElementById('quickPrompts');
-            container.innerHTML = `
-                <button class="quick-prompt-btn" onclick="handleClick('Hematology')">🧪 Hematology</button>
-                <button class="quick-prompt-btn" onclick="handleClick('Biochemistry')">🧫 Biochemistry</button>
-                <button class="quick-prompt-btn" onclick="handleClick('CLIA')">🔬 CLIA</button>
-                <button class="quick-prompt-btn" onclick="handleClick('Pricing')">💰 Pricing</button>
-                <button class="quick-prompt-btn" onclick="handleClick('Services')">🔧 Services</button>
-                <button class="quick-prompt-btn" onclick="handleClick('Contact')">📞 Contact</button>
-            `;
+            container.innerHTML = '';
+            const buttons = [
+                { text: '🧪 Hematology', action: 'Hematology' },
+                { text: '🧫 Biochemistry', action: 'Biochemistry' },
+                { text: '🔬 CLIA', action: 'CLIA' },
+                { text: '💰 Pricing', action: 'Pricing' },
+                { text: '🔧 Services', action: 'Services' },
+                { text: '📞 Contact', action: 'Contact' }
+            ];
+            buttons.forEach(btn => {
+                const button = document.createElement('button');
+                button.className = 'quick-prompt-btn';
+                button.textContent = btn.text;
+                button.onclick = () => handleClick(btn.action);
+                container.appendChild(button);
+            });
         }
 
         function handleClick(action) {
